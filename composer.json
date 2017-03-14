@@ -1,0 +1,25 @@
+{
+    "name": "CakeDC/Mixer",
+    "description": "CakeDC/Mixer plugin for CakePHP",
+    "type": "cakephp-plugin",
+    "require": {
+        "php": ">=5.5.9",
+        "cakephp/cakephp": "3.3.*",
+        "friendsofcake/bootstrap-ui": "^0.6.2",
+        "composer/composer": "^1.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "CakeDC\\Mixer\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CakeDC\\Mixer\\Test\\": "tests",
+            "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
+        }
+    }
+}
