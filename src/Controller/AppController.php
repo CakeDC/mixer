@@ -19,6 +19,7 @@ class AppController extends Controller
         parent::initialize();
 
         $this->loadComponent('CakeDC/Mixer.Composer');
+        $this->loadComponent('RequestHandler');
     }
 
     /**

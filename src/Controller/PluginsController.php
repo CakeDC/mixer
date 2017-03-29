@@ -1,7 +1,9 @@
 <?php
 namespace CakeDC\Mixer\Controller;
 
+use Cake\Core\Configure;
 use Cake\Network\Exception\BadRequestException;
+use Cake\Utility\Hash;
 
 /**
  * Plugins Controller
@@ -18,8 +20,9 @@ class PluginsController extends AppController
     public function index()
     {
         $data = null;
-        if ($search = $this->request->query('search')) {
-            $data = json_decode(file_get_contents('https://packagist.org/search.json?type=cakephp-plugin&q=' . urlencode($search)), true);
+        if ($search = $this->request->query('q')) {
+            $data = json_decode(file_get_contents(Configure::read('Mixer.api') . 'packages?q=' . urlencode($search)), true);
+            $data = Hash::get($data, 'data');
         }
 
         $this->set(compact('data'));

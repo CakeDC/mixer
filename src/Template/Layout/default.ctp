@@ -29,6 +29,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?php $this->append('css', $this->Html->css('CakeDC/Mixer.app.css')); ?>
     <?= $this->fetch('css') ?>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
