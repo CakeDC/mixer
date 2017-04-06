@@ -3,6 +3,7 @@ namespace CakeDC\Mixer\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
+use Cake\Utility\Hash;
 use Composer\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -87,5 +88,12 @@ class ComposerComponent extends Component
         $application->run($input, $output);
 
         return $output->fetch();
+    }
+
+    public function getRequired()
+    {
+        $composerJson = json_decode(file_get_contents(ROOT . DS . 'composer.json'), true);
+
+        return array_merge(Hash::get($composerJson, 'require', []), Hash::get($composerJson, 'require-dev', []));
     }
 }

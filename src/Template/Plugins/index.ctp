@@ -1,8 +1,8 @@
-<div id="plugins" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<div id="plugins" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <form method="get" accept-charset="utf-8" id="search" action="" v-on:submit.prevent="search">
         <div class="input-group">
-            <input type="text" name="q" placeholder="Search..." class="input-lg form-control" :value="query" @input="updateQuery" :readonly="isLoading" />
-            <span class="input-group-btn"><button class="btn-lg btn btn-default" type="submit" :disabled="isLoading"><i class="fa fa-search"></i></button></span>
+            <input type="text" name="q" placeholder="Search..." class="input-lg form-control" :value="query" @input="updateQuery" />
+            <span class="input-group-btn"><button class="btn-lg btn btn-default" type="submit"><i class="fa fa-search"></i></button></span>
         </div>
     </form>
     <div class="row clearfix" v-bind:class="{ loading: isLoading }">
@@ -17,9 +17,7 @@
                                 <span><i class="fa fa-star"></i> {{ plugin.stars }}</span>
                             </div>
                         </div>
-                        <div class="panel-body">
-                            <p>{{ plugin.description }}</p>
-                        </div>
+                        <div class="panel-body">{{ plugin.description }}</div>
                     </div>
                 </template>
                 <template v-else>
@@ -45,4 +43,10 @@
         </div>
     </div>
 </div>
+$this->append('script'); ?>
+<script>
+    var apiURL = '<?= \Cake\Core\Configure::read('Mixer.api') ?>';
+    var installedPackages = <?= json_encode($installed) ?>;
+</script>
+<?php $this->end(); ?>
 <?php $this->append('script', $this->Html->script('CakeDC/Mixer.app')) ?>

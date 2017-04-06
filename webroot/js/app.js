@@ -1,5 +1,3 @@
-var apiURL = 'http://dev.mixerapi.cakedc.com/api/v1/';
-
 var app = new Vue({
 
     el: '#plugins',
@@ -21,16 +19,6 @@ var app = new Vue({
         selectedId: 'view'
     },
 
-    computed: {
-        compiledMarkdown: function () {
-            if (!this.selected) {
-                return;
-            }
-
-            return marked(this.selected.readme, { sanitize: true })
-        }
-    },
-
     methods: {
         updateQuery: _.debounce(function (e) {
             var query = e.target.value;
@@ -50,8 +38,8 @@ var app = new Vue({
             xhr.open('GET', apiURL + 'packages?q=' + self.query);
             xhr.onload = function () {
                 self.plugins = JSON.parse(xhr.responseText).data;
+
                 self.isLoading = false;
-                //console.log(self.plugins);
             };
             xhr.send();
         },
@@ -64,9 +52,21 @@ var app = new Vue({
             xhr.open('GET', apiURL + 'packages/' + self.selectedId);
             xhr.onload = function () {
                 self.selected = JSON.parse(xhr.responseText).data;
+                self.selected.is_installed = (installedPackages[self.selected.name] !== undefined);
+
                 self.isLoading = false;
             };
             xhr.send();
+        },
+    },
+
+    computed: {
+        compiledMarkdown: function () {
+            if (!this.selected) {
+                return;
+            }
+
+            return marked(this.selected.readme, { sanitize: true })
         }
     }
 });
