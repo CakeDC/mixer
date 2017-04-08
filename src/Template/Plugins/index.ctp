@@ -1,3 +1,6 @@
+<?php
+use Cake\Routing\Router;
+?>
 <div id="plugins" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <form method="get" accept-charset="utf-8" id="search" action="" v-on:submit.prevent="search">
         <div class="input-group">
@@ -5,7 +8,7 @@
             <span class="input-group-btn"><button class="btn-lg btn btn-default" type="submit"><i class="fa fa-search"></i></button></span>
         </div>
     </form>
-    <div class="row clearfix" v-bind:class="{ loading: isLoading }">
+    <div class="row clearfix " v-bind:class="{ loading: isLoading }">
         <div class="col-sm-5">
             <div v-if="plugins != null">
                 <template v-if="plugins.length > 0">
@@ -28,8 +31,8 @@
         <div class="col-sm-7">
             <div class="panel panel-default" v-if="selected">
                 <div class="panel-heading clearfix">
-                    <a v-if="selected.is_installed" href="#" class="btn btn-danger">Uninstall</a>
-                    <a v-else href="#" class="btn btn-primary">Install</a>
+                    <a v-if="selected.is_installed" v-on:click.prevent="uninstall" :data-package="selected.name" href="<?= Router::url(['action' => 'remove']) ?>" class="btn btn-danger">Uninstall</a>
+                    <a v-else v-on:click.prevent="install" :data-id="selected.id" href="<?= Router::url(['action' => 'install']) ?>" class="btn btn-primary">Install</a>
                     <div class="pull-right">
                         <span><i class="fa fa-download"></i> {{ selected.downloads }}</span>
                         <span><i class="fa fa-star"></i> {{ selected.stars }}</span>
@@ -37,13 +40,11 @@
                 </div>
                 <div class="panel-body" v-html="compiledMarkdown"></div>
             </div>
-            <div v-else>
-                hello
-            </div>
+            <div v-else></div>
         </div>
     </div>
 </div>
-$this->append('script'); ?>
+<?php $this->append('script'); ?>
 <script>
     var apiURL = '<?= \Cake\Core\Configure::read('Mixer.api') ?>';
     var installedPackages = <?= json_encode($installed) ?>;

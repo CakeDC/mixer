@@ -10,7 +10,11 @@ body {
     position: relative;
 }
 
-.loading:before {
+.panel {
+    position: relative;
+}
+
+.loading .panel:before {
     content: "";
     position: absolute;
     display: block;
@@ -20,4 +24,17 @@ body {
     right: 0;
     left: 0;
     background: rgba(255, 255, 255, 0.5);
+}
+.loading:before {
+    content: "\f110";
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 3em;
+    text-align: center;
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    margin-left: -22px;
+    z-index: 3;
+    -webkit-animation: fa-spin 1s infinite steps(8);
+    animation: fa-spin 1s infinite steps(8);
 }

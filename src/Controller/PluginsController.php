@@ -2,6 +2,7 @@
 namespace CakeDC\Mixer\Controller;
 
 use Cake\Console\Shell;
+use Cake\Console\ShellDispatcher;
 use Cake\Core\Configure;
 use Cake\Http\Client;
 use Cake\Network\Exception\BadRequestException;
@@ -15,6 +16,13 @@ use Cake\Utility\Hash;
  */
 class PluginsController extends AppController
 {
+
+    public function initialize()
+    {
+        parent::initialize();
+
+        set_time_limit(600);
+    }
 
     /**
      * Index method
@@ -49,12 +57,24 @@ class PluginsController extends AppController
         }
 
         $success = true;
-        $message = __d('Mixer', '{0} plugin successfully installed', $package->name);
-        if (!$output = $this->Composer->req($package->name)) {
+        $message = __d('Mixer', '{0} plugin successfully installed', $package['name']);
+        if (!$output = $this->Composer->req($package['name'])) {
             $success = false;
-            $message = __d('Mixer', 'Failed installing {0} plugin', $package->name);
-        } elseif ($pluginName = $this->_getPluginName($package->name)) {
-            // TODO: run shell
+            $message = __d('Mixer', 'Failed installing {0} plugin', $package['name']);
+        } elseif ($pluginName = $this->_getPluginName($package['name'])) {
+            $args = ['plugin', 'load', $pluginName];
+
+            if ($package['has_bootstrap']) {
+                $args[] = '--bootstrap';
+            }
+
+            if ($package['has_routes']) {
+                $args[] = '--routes';
+            }
+
+            //if (!$this->_dispatchShell($args)) {
+            //    throw new \Exception('Could not load plugin ' . $pluginName);
+            //}
         }
 
         if (!$this->request->is('json')) {
@@ -80,13 +100,17 @@ class PluginsController extends AppController
             throw new BadRequestException();
         }
 
+        if ($pluginName = $this->_getPluginName($package)) {
+            //if (!$this->_dispatchShell(['plugin', 'unload', $pluginName])) {
+            //    throw new \Exception('Could not unload plugin ' . $pluginName);
+            //}
+        }
+
         $success = true;
         $message = __d('Mixer', '{0} plugin successfully remove', $package);
         if (!$output = $this->Composer->remove($package)) {
             $success = false;
             $message = __d('Mixer', 'Failed removing {0} plugin', $package);
-        } elseif ($pluginName = $this->_getPluginName($package)) {
-            // TODO: run shell
         }
 
         if (!$this->request->is('json')) {
@@ -106,6 +130,11 @@ class PluginsController extends AppController
             return false;
         }
 
-        return rtrim(array_search('src', $autoload), '\\');
+        return str_replace('\\', '/', rtrim(array_search('src', $autoload), '\\'));
+    }
+
+    protected function _dispatchShell($args)
+    {
+        return (new Shell())->dispatchShell(implode(' ', $args)) == Shell::CODE_SUCCESS;
     }
 }

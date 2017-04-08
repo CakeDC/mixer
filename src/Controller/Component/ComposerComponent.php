@@ -94,6 +94,6 @@ class ComposerComponent extends Component
     {
         $composerJson = json_decode(file_get_contents(ROOT . DS . 'composer.json'), true);
 
-        return array_merge(Hash::get($composerJson, 'require', []), Hash::get($composerJson, 'require-dev', []));
+        return array_keys(array_merge(Hash::get($composerJson, 'require', []), Hash::get($composerJson, 'require-dev', [])));
     }
 }

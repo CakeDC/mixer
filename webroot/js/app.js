@@ -52,12 +52,46 @@ var app = new Vue({
             xhr.open('GET', apiURL + 'packages/' + self.selectedId);
             xhr.onload = function () {
                 self.selected = JSON.parse(xhr.responseText).data;
-                self.selected.is_installed = (installedPackages[self.selected.name] !== undefined);
+                self.selected.is_installed = (installedPackages.indexOf(self.selected.name) !== -1);
 
                 self.isLoading = false;
             };
             xhr.send();
         },
+
+        install: function(event) {
+            var self = this;
+            self.isLoading = true;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', event.target.href + '.json');
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.onload = function () {
+                //alert(JSON.parse(xhr.responseText).message);
+                self.selected.is_installed = true;
+                installedPackages.push(self.selected.name);
+
+                self.isLoading = false;
+            };
+            xhr.send('id=' + self.selected.id);
+        },
+
+        uninstall: function(event) {
+            var self = this;
+            self.isLoading = true;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', event.target.href + '.json');
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.onload = function () {
+                //alert(JSON.parse(xhr.responseText).message);
+                self.selected.is_installed = false;
+                installedPackages.splice(installedPackages.indexOf(self.selected.name), 1);
+
+                self.isLoading = false;
+            };
+            xhr.send('package=' + self.selected.name);
+        }
     },
 
     computed: {
