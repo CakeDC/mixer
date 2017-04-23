@@ -1,5 +1,5 @@
 <?php
-/** @var \App\View\AppView $this */
+/** @var \CakeDC\Mixer\View\AppView $this */
 
 use Cake\I18n\I18n;
 use Cake\Routing\Router;

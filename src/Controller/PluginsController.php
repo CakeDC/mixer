@@ -2,12 +2,10 @@
 namespace CakeDC\Mixer\Controller;
 
 use Cake\Console\Shell;
-use Cake\Console\ShellDispatcher;
 use Cake\Core\Configure;
 use Cake\Http\Client;
 use Cake\Network\Exception\BadRequestException;
 use Cake\Network\Exception\NotFoundException;
-use Cake\Shell\PluginShell;
 use Cake\Utility\Hash;
 
 /**
@@ -40,13 +38,13 @@ class PluginsController extends AppController
     /**
      * Install method
      *
-     * @return \Cake\Network\Response
+     * @return \Cake\Http\Response
      */
     public function install()
     {
         $this->request->allowMethod('post');
 
-        if (!$id = $this->request->data('id')) {
+        if (!$id = $this->request->getData('id')) {
             throw new BadRequestException();
         }
 
@@ -90,13 +88,13 @@ class PluginsController extends AppController
     /**
      * Remove method
      *
-     * @return \Cake\Network\Response
+     * @return \Cake\Http\Response
      */
     public function remove()
     {
         $this->request->allowMethod('post');
 
-        if (!$package = $this->request->data('package')) {
+        if (!$package = $this->request->getData('package')) {
             throw new BadRequestException();
         }
 

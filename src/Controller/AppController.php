@@ -31,8 +31,8 @@ class AppController extends Controller
     public function beforeRender(Event $event)
     {
         // For CakePHP 3.1+
-        if ($this->viewBuilder()->className() === null) {
-            $this->viewBuilder()->className('CakeDC/Mixer.App');
+        if ($this->viewBuilder()->getClassName() === null) {
+            $this->viewBuilder()->setClassName('CakeDC/Mixer.App');
         }
     }
 }

@@ -2,7 +2,6 @@
 namespace CakeDC\Mixer\View\Helper;
 
 use Cake\View\Helper;
-use Cake\View\View;
 
 /**
  * Composer helper

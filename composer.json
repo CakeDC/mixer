@@ -4,7 +4,7 @@
     "type": "cakephp-plugin",
     "require": {
         "php": ">=5.5.9",
-        "cakephp/cakephp": "3.3.*",
+        "cakephp/cakephp": "3.4.*",
         "friendsofcake/bootstrap-ui": "^0.6.2",
         "composer/composer": "^1.4"
     },

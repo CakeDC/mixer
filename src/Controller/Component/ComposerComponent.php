@@ -36,11 +36,11 @@ class ComposerComponent extends Component
             'home' => TMP . 'composer'
         ];
 
-        $this->config($config);
+        $this->setConfig($config);
 
         putenv("OSTYPE=OS400");
         if (!getenv('COMPOSER_HOME')) {
-            putenv("COMPOSER_HOME={$this->config('home')}");
+            putenv("COMPOSER_HOME={$this->getConfig('home')}");
         }
 
         ini_set('memory_limit', '512M');
