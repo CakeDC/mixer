@@ -10,6 +10,7 @@ Router::plugin(
         $routes->extensions(['json']);
 
         $routes->connect('/', ['controller' => 'Plugins', 'action' => 'index']);
+        $routes->connect('/plugins-installed', ['controller' => 'Plugins', 'action' => 'installed'], ['_name' => 'installed']);
 
         $routes->fallbacks(DashedRoute::class);
     }
