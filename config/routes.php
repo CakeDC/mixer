@@ -9,8 +9,8 @@ Router::plugin(
     function (RouteBuilder $routes) {
         $routes->extensions(['json']);
 
-        $routes->connect('/', ['controller' => 'Plugins', 'action' => 'index']);
+        $routes->connect('/*', ['controller' => 'Mixer', 'action' => 'index']);
 
-        $routes->fallbacks(DashedRoute::class);
+        //$routes->fallbacks(DashedRoute::class);
     }
 );

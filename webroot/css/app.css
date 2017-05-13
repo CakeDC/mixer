@@ -1,6 +1,35 @@
 body {
     margin-top: 60px;
+    background: #f7f7f5;
 }
+
+.navbar-inverse {
+    background-color: #D33C44;
+    border: none;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.list-item {
+    display: flex;
+    /*width: 33.33%;*/
+    width: 50%;
+}
+
+.list-item .box-body {
+    padding-bottom: 25px;
+}
+
+.list-item .direct-chat-info {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
+}
+
 
 #search {
     margin-bottom: 20px;
