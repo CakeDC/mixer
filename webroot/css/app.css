@@ -17,12 +17,12 @@ a:hover {
     border-left: 3px solid transparent;
 }
 
-.nav > li > a:hover {
+.navbar-nav > li > a:hover {
     color: #fff;
     background-color: #c43840;
     text-decoration: none;
 }
-.nav > li > a:active, .nav > li > a:focus {
+.navbar-nav > li > a:active, .navbar-nav > li > a:focus {
     color: #fff;
     background: transparent;
 }

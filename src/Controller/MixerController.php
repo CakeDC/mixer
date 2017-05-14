@@ -49,7 +49,7 @@ class MixerController extends AppController
         }
 
         $http = new Client();
-        $response = $http->get(Configure::read('Mixer.api') . 'packages/' . $name);
+        $response = $http->get(Configure::read('Mixer.api') . '/packages/' . $name);
         if (!$package = Hash::get($response->json, 'data')) {
             throw new NotFoundException();
         }
