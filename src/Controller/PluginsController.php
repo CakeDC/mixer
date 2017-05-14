@@ -121,6 +121,18 @@ class PluginsController extends AppController
         $this->set('_serialize', ['success', 'message']);
     }
 
+     /**
+     * Installed method
+     *
+     * @return \Cake\Http\Response
+     */
+    public function installed()
+    {
+        $installed = $this->Composer->getInstalledPlugins();
+        $this->set(compact('installed'));
+        $this->set('_serialize', ['installed']);
+    }
+
     protected function _getPluginName($package)
     {
         $composer = json_decode(file_get_contents(ROOT . DS . 'vendor' . DS . $package . DS . 'composer.json'), true);

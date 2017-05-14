@@ -3,6 +3,7 @@ namespace CakeDC\Mixer\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
+use Cake\Filesystem\Folder;
 use Cake\Utility\Hash;
 use Composer\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -13,6 +14,8 @@ use Symfony\Component\Console\Output\BufferedOutput;
  */
 class ComposerComponent extends Component
 {
+
+    const TYPE = "cakephp-plugin";
 
     /**
      * Default configuration.
@@ -92,8 +95,101 @@ class ComposerComponent extends Component
 
     public function getRequired()
     {
-        $composerJson = json_decode(file_get_contents(ROOT . DS . 'composer.json'), true);
+        $composerJson = $this->getComposerData();
 
         return array_keys(array_merge(Hash::get($composerJson, 'require', []), Hash::get($composerJson, 'require-dev', [])));
+    }
+
+    /**
+     * getComposerData method will provide the composer.json in array
+     *
+     * @return array
+     */
+    public function getComposerData($path = null)
+    {
+        if (!$path) {
+            $path = ROOT . DS . 'composer.json';
+        }
+        return json_decode(file_get_contents($path), true);
+    }
+
+    /**
+     * getInstalledPlugins this method will return all cakephp plugins installed into your app
+     *
+     * @return array
+     */
+    public function getInstalledPlugins()
+    {
+        $required = $this->getRequired();
+        $installers = $this->__getInstallerPaths();
+        $cakephpPlugins = $this->__getCakephpPlugins();
+        $installed = [];
+        foreach ($required as $plugin) {
+            if (isset($installers[$plugin])) {
+                $path = ROOT . DS . $installers[$plugin] . DS . 'composer.json';
+                if (file_exists($path)) {
+                    $composer = $this->getComposerData($path);
+                    if (isset($composer['type']) && $composer['type'] == self::TYPE) {
+                        $installed[]['name'] = $plugin;
+                    }
+                }
+            } else {
+                foreach ($cakephpPlugins as $composerPlugin) {
+                    if ($plugin == $composerPlugin) {
+                        $installed[]['name'] = $plugin;
+                    }
+                }
+            }
+        }
+        return $installed;
+    }
+
+    /**
+     * getInstallerPaths will return where the plugins were installed
+     *
+     * @return array|bool
+     */
+    private function __getInstallerPaths()
+    {
+        $composerData = $this->getComposerData();
+        $required = $this->getRequired();
+        if (!empty($composerData['extra']['installer-paths'])) {
+            $installers = $composerData['extra']['installer-paths'];
+            $paths = [];
+            foreach ($required as $plugin) {
+                foreach ($installers as $key => $path) {
+                    if (!isset($path[0])) {
+                        continue;
+                    }
+                    if ($plugin == $path[0]) {
+                        $paths[$plugin] = $key;
+                    }
+                }
+            }
+
+            return $paths;
+        }
+
+        return false;
+    }
+
+    /**
+     * getCakephpPlugins method will return only the cakephp plugins
+     *
+     * @return array
+     */
+    private function __getCakephpPlugins()
+    {
+        $dir = new Folder(ROOT . DS . 'vendor');
+        $composers = $dir->findRecursive('composer.json');
+        $cakephpPlugins = [];
+        foreach ($composers as $path) {
+            $composerData = $this->getComposerData($path);
+            if (isset($composerData['type']) && $composerData['type'] == self::TYPE) {
+                $cakephpPlugins[] = $composerData['name'];
+            }
+        }
+
+        return $cakephpPlugins;
     }
 }
