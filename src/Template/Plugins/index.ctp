@@ -50,4 +50,4 @@ use Cake\Routing\Router;
     var installedPackages = <?= json_encode($installed) ?>;
 </script>
 <?php $this->end(); ?>
-<?php $this->append('script', $this->Html->script('CakeDC/Mixer.app')) ?>
+<?php $this->append('script', $this->Html->script('CakeDC/Mixer.index')) ?>

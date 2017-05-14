@@ -1,5 +1,5 @@
 {
-    "name": "CakeDC/Mixer",
+    "name": "cakedc/mixer",
     "description": "CakeDC/Mixer plugin for CakePHP",
     "type": "cakephp-plugin",
     "require": {

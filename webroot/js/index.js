@@ -11,14 +11,15 @@ var app = new Vue({
     },
 
     created: function () {
-        this.search();
+       this.search();
     },
-
     watch: {
         query: 'search',
         selectedId: 'view'
     },
-
+    mounted: function () {
+        this.list();
+    },
     methods: {
         updateQuery: _.debounce(function (e) {
             var query = e.target.value;
@@ -91,6 +92,25 @@ var app = new Vue({
                 self.isLoading = false;
             };
             xhr.send('package=' + self.selected.name);
+        },
+        list: function(event) {
+            var self = this;
+            self.isLoading = true;
+
+            installedPackages
+            var xhr = new XMLHttpRequest();
+            for (var i in array) {
+                xhr.open('GET', apiURL + 'packages/' + self.selectedId);
+                xhr.onload = function () {
+                    self.plugins = JSON.parse(xhr.responseText).data;
+                };
+                xhr.send();
+            }
+            self.isLoading = false;
+
+            this.isLoading = false;
+            this.plugins = installedPackages;
+            console.log(this.plugins);
         }
     },
 
