@@ -30,6 +30,10 @@ body {
     left: 10px;
 }
 
+.readme img {
+    max-width: 100%;
+}
+
 
 #search {
     margin-bottom: 20px;

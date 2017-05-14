@@ -12,9 +12,9 @@
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-router-redux": "^5.0.0-alpha.6",
-    "react-timeago": "^3.3.0",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
+    "timeago-react": "^1.1.0",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {

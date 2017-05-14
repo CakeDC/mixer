@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import TimeAgo from 'react-timeago'
+import TimeAgo from 'timeago-react';
 
 const PluginListItem = ({ plugin, overlay = false }) => (
     <div className="box box-default">
@@ -15,7 +15,7 @@ const PluginListItem = ({ plugin, overlay = false }) => (
             <p>{plugin.description}</p>
             <div className="direct-chat-info">
                 <button className="btn btn-xs btn-primary btn-social pull-left"><i className="fa fa-download" />Install</button>
-                {plugin.latest_release_date && <span className="direct-chat-timestamp pull-right"><TimeAgo date={plugin.latest_release_date} /></span>}
+                {plugin.latest_release_date && <span className="direct-chat-timestamp pull-right"><TimeAgo datetime={plugin.latest_release_date} /></span>}
             </div>
         </div>
         {overlay &&

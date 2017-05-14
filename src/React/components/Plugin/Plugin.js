@@ -4,7 +4,7 @@ import { MarkdownPreview } from 'react-marked-markdown'
 const Plugin = ({ data }) => (
     <div className="row">
         <div className="col-md-8">
-            <div className="box box-solid">
+            <div className="box box-solid readme">
                 <div className="box-body">
                     <MarkdownPreview value={data.readme} />
                 </div>
