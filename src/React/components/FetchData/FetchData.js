@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import { Loader } from '../Loader'
 import { fetchDataIfNeeded } from './actions'
 
 class FetchData extends Component {
@@ -23,12 +24,15 @@ class FetchData extends Component {
         return (
             <div className="clearfix">
                 {isFetching && data === null &&
-                    <h2>Loading...</h2>
+                <div className="box box-default box-empty">
+                    <div className="box-body" />
+                    <Loader />
+                </div>
                 }
-                {!isFetching && data === null &&
-                    <h2>Empty.</h2>
+                {!isFetching && (data === null || data.length === 0) &&
+                    <div className="alert alert-warning">Nothing found on your request</div>
                 }
-                {!isFetching && data !== null &&
+                {data !== null &&
                     React.Children.map(this.props.children, (child) => React.cloneElement(child, { data, isFetching }))
                 }
             </div>

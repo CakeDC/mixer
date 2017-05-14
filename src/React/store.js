@@ -3,7 +3,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
 import thunkMiddleware from 'redux-thunk'
 
-import rootReducer from './rootReducer'
+import rootReducer from './reducer'
 
 
 // Create a history of your choosing (we're using a browser history in this case)

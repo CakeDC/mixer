@@ -1,9 +1,33 @@
 body {
-    margin-top: 60px;
+    margin-top: 96px;
     background: #f7f7f5;
 }
 
-.navbar-inverse {
+a {
+    text-decoration: underline;
+}
+a:hover {
+    text-decoration: none;
+}
+
+.nav > li > .line {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    border-left: 3px solid transparent;
+}
+
+.nav > li > a:hover {
+    color: #fff;
+    background-color: #c43840;
+    text-decoration: none;
+}
+.nav > li > a:active, .nav > li > a:focus {
+    color: #fff;
+    background: transparent;
+}
+
+.navbar {
     background-color: #D33C44;
     border: none;
 }
@@ -20,7 +44,7 @@ body {
 }
 
 .list-item .box-body {
-    padding-bottom: 25px;
+    padding-bottom: 40px;
 }
 
 .list-item .direct-chat-info {
@@ -34,40 +58,166 @@ body {
     max-width: 100%;
 }
 
+.navbar-nav li a {
+    font-size: 13px;
+    text-transform: capitalize;
+    font-weight: 500;
+    display: inline-block;
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #D33C44;
+    border-color: #ccc;
+}
+.btn-primary:hover {
+    background-color: #c02e36;
+    border-color: #ccc;
+}
+.btn-primary:focus, .btn-primary:active {
+    background-color: #a42a31 !important;
+    border-color: #ccc !important;
+}
+
+.btn-install, .btn-install:hover, .btn-install:focus, .btn-install:active {
+    background: #404041 !important;
+    border: none !important;
+    padding: 0 0 5px 0 !important;
+    line-height: 1;
+}
+.btn-install:hover {
+    -webkit-filter: brightness(80%);
+    filter: brightness(80%);
+    transition: all .2s ease-in-out;
+}
+.btn-install span {
+    display: inline-block;
+    padding: 5px 12px;
+    -webkit-box-shadow: 0 5px 0 0 #323232;
+    -moz-box-shadow: 0 5px 0 0 #323232;
+    box-shadow: 0 5px 0 0 #323232;
+}
+.btn-install > :first-child {
+    position: relative;
+    background: #D33D44;
+    -webkit-box-shadow: 0 5px 0 0 #af333c;
+    -moz-box-shadow: 0 5px 0 0 #af333c;
+    box-shadow: 0 5px 0 0 #af333c;
+    font-size: 1.2em;
+    width: 40px;
+    line-height: 1;
+    padding: 8px 12px 5px 12px;
+}
+.btn-install > :first-child:before {
+    margin-top: 5px;
+}
+
+.btn-xs.btn-install, .btn-xs.btn-install:hover, .btn-xs.btn-install:focus, .btn-xs.btn-install:active {
+    padding: 0 0 3px 0 !important;
+}
+.btn-xs.btn-install span {
+    padding: 2px 8px;
+    -webkit-box-shadow: 0 3px 0 0 #323232;
+    -moz-box-shadow: 0 3px 0 0 #323232;
+    box-shadow: 0 3px 0 0 #323232;
+}
+.btn-xs.btn-install > :first-child {
+    padding: 3px 8px 2px 8px;
+    width: 26px;
+    -webkit-box-shadow: 0 3px 0 0 #af333c;
+    -moz-box-shadow: 0 3px 0 0 #af333c;
+    box-shadow: 0 3px 0 0 #af333c;
+    line-height: 1;
+}
+
+.btn-sm.btn-install span {
+    padding: 5px 12px;
+}
+.btn-sm.btn-install > :first-child {
+    padding: 6px 10px 5px 10px;
+    width: 32px;
+    line-height: 1;
+    font-size: 1.2em;
+}
+
+.btn-lg.btn-install span {
+    padding: 10px 16px;
+}
+.btn-lg.btn-install > :first-child {
+    padding: 10px 16px;
+    width: 50px;
+    line-height: 1;
+    font-size: 1.2em;
+}
+
+.btn-install.btn-warning > :first-child {
+    background: #f39c12;
+    -webkit-box-shadow: 0 5px 0 0 #dc8f14;
+    -moz-box-shadow: 0 5px 0 0 #dc8f14;
+    box-shadow: 0 5px 0 0 #dc8f14;
+}
+
+.bg-dark-grey {
+    background: #404042;
+    color: #fff;
+}
+
+.widget-user-header a {
+    color: #fff;
+}
+.widget-user-header a:hover {
+    text-decoration: underline;
+}
+
+.widget-user .widget-user-image > img {
+    background: #fff;
+}
+
+.box-empty .box-body {
+    min-height: 123px;
+}
+
+.direct-chat-timestamp {
+    margin-top: 5px;
+}
 
 #search {
     margin-bottom: 20px;
 }
 
-.loading {
-    position: relative;
-}
-
-.panel {
-    position: relative;
-}
-
-.loading .panel:before {
-    content: "";
-    position: absolute;
-    display: block;
-    z-index: 2;
+.global-overlay {
+    position: fixed;
     top: 0;
-    bottom: 0;
     right: 0;
+    bottom: 0;
     left: 0;
-    background: rgba(255, 255, 255, 0.5);
+    z-index: 1050;
+    background: rgba(255,255,255,0.7);
+    overflow-x: hidden;
+    overflow-y: auto;
 }
-.loading:before {
-    content: "\f110";
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: 3em;
-    text-align: center;
+
+.global-overlay > div {
     position: absolute;
-    top: 60px;
+    width: 600px;
+    top: 50%;
     left: 50%;
-    margin-left: -22px;
-    z-index: 3;
-    -webkit-animation: fa-spin 1s infinite steps(8);
-    animation: fa-spin 1s infinite steps(8);
+    margin-left: -300px;
+    margin-top: -50px;
+    color: #000;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .navbar-nav > li > a {
+        padding: 28px 15px;
+    }
+    .navbar-brand {
+        margin: 24px 0 0 0 !important;
+        padding: 0;
+        height: auto;
+    }
+    .navbar-brand img {
+        height: 25px;
+    }
 }

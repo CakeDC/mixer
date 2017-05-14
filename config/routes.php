@@ -9,6 +9,8 @@ Router::plugin(
     function (RouteBuilder $routes) {
         $routes->extensions(['json']);
 
+        $routes->connect('/install', ['controller' => 'Mixer', 'action' => 'install']);
+        $routes->connect('/uninstall', ['controller' => 'Mixer', 'action' => 'uninstall']);
         $routes->connect('/*', ['controller' => 'Mixer', 'action' => 'index']);
 
         //$routes->fallbacks(DashedRoute::class);

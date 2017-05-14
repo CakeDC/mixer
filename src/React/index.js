@@ -9,9 +9,8 @@ import { App } from './components/App'
 import { SearchView } from './views/SearchView'
 import { HomeView } from './views/HomeView'
 import { PluginView } from './views/PluginView'
+import { InstalledView } from './views/InstalledView'
 import { store, history } from './store'
-
-import './index.css'
 
 if (!window.Promise) {
     window.Promise = Promise;
@@ -23,17 +22,10 @@ ReactDOM.render(
             <App push={push}>
                 <Route exact path="/" component={HomeView} />
                 <Route path="/search" component={SearchView} />
+                <Route path="/installed" component={InstalledView} />
                 <Route path="/view/:owner/:repo" component={PluginView} />
             </App>
         </ConnectedRouter>
     </Provider>,
     document.getElementById('root')
 )
-
-//<Route path="/about" component={About}/>
-//<Route path="/topics" component={Topics}/>
-
-//ReactDOM.render(
-//  <App />,
-//  document.getElementById('root')
-//)

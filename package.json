@@ -8,6 +8,7 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-marked-markdown": "^1.4.2",
+    "react-number-format": "^1.2.1",
     "react-redux": "^5.0.4",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",

@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import queryString from 'query-string'
 import { withRouter } from 'react-router'
-//import Form from 'react-router-form'
 
 class SearchForm extends Component {
     constructor(props) {
@@ -41,7 +40,7 @@ class SearchForm extends Component {
                         className="input-lg form-control"
                         value={this.state.q}
                         onChange={this.handleInput} />
-                    <span className="input-group-btn"><button className="btn-lg btn btn-default" type="submit"><i className="fa fa-search"></i></button></span>
+                    <span className="input-group-btn"><button className="btn-lg btn btn-primary" type="submit"><i className="fa fa-search"></i></button></span>
                 </div>
             </form>
         );

@@ -21,7 +21,10 @@ function receiveData(namespace, query, json) {
 function fetchData(namespace, query) {
     return dispatch => {
         dispatch(requestData(namespace, query))
-        return fetch(`http://mixerapi.develop.cakedc.com/api/v1/${query}`)
+
+        window.scrollTo(0, 0);
+
+        return fetch(`${window.apiUrl}/${query}`)
             .then(response => response.json())
             .then(json => dispatch(receiveData(namespace, query, json)))
     }

@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 class ComposerComponent extends Component
 {
 
-    const TYPE = "cakephp-plugin";
+    const TYPE_CAKEPHP_PLUGIN = "cakephp-plugin";
 
     /**
      * Default configuration.
@@ -103,14 +103,40 @@ class ComposerComponent extends Component
     /**
      * getComposerData method will provide the composer.json in array
      *
-     * @return array
+     * @param string $path
+     * @return array|bool
      */
     public function getComposerData($path = null)
     {
         if (!$path) {
             $path = ROOT . DS . 'composer.json';
         }
+
+        if (!is_readable($path)) {
+             return false;
+        }
+
         return json_decode(file_get_contents($path), true);
+    }
+
+    public function getRequiredPackages($type = self::TYPE_CAKEPHP_PLUGIN)
+    {
+        $required = $this->getRequired();
+
+        $packages = [];
+        foreach ($required as $name) {
+            if (!$composer = $this->getComposerData(ROOT . DS . 'vendor' . DS . $name . DS . 'composer.json')) {
+                continue;
+            }
+
+            if ($type && Hash::get($composer, 'type') != $type) {
+                continue;
+            }
+
+            $packages[] = array_intersect_key($composer, array_flip(['name', 'description']));
+        }
+
+        return $packages;
     }
 
     /**
@@ -121,7 +147,7 @@ class ComposerComponent extends Component
     public function getInstalledPlugins()
     {
         $required = $this->getRequired();
-        $installers = $this->__getInstallerPaths();
+        $installers = $this->_getInstallerPaths();
         $cakephpPlugins = $this->__getCakephpPlugins();
         $installed = [];
         foreach ($required as $plugin) {
@@ -129,7 +155,7 @@ class ComposerComponent extends Component
                 $path = ROOT . DS . $installers[$plugin] . DS . 'composer.json';
                 if (file_exists($path)) {
                     $composer = $this->getComposerData($path);
-                    if (isset($composer['type']) && $composer['type'] == self::TYPE) {
+                    if (isset($composer['type']) && $composer['type'] == self::TYPE_CAKEPHP_PLUGIN) {
                         $installed[]['name'] = $plugin;
                     }
                 }
@@ -149,7 +175,7 @@ class ComposerComponent extends Component
      *
      * @return array|bool
      */
-    private function __getInstallerPaths()
+    private function _getInstallerPaths()
     {
         $composerData = $this->getComposerData();
         $required = $this->getRequired();
@@ -185,7 +211,7 @@ class ComposerComponent extends Component
         $cakephpPlugins = [];
         foreach ($composers as $path) {
             $composerData = $this->getComposerData($path);
-            if (isset($composerData['type']) && $composerData['type'] == self::TYPE) {
+            if (isset($composerData['type']) && $composerData['type'] == self::TYPE_CAKEPHP_PLUGIN) {
                 $cakephpPlugins[] = $composerData['name'];
             }
         }

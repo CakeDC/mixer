@@ -14,8 +14,6 @@ use Cake\View\View;
  */
 class AppView extends View
 {
-    use UIViewTrait;
-
     /**
      * Initialization hook method.
      *
@@ -30,7 +28,5 @@ class AppView extends View
         parent::initialize();
 
         $this->loadHelper('CakeDC/Mixer.Composer');
-
-        $this->initializeUI(['layout' => false]);
     }
 }
