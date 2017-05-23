@@ -50,8 +50,9 @@ function mapStateToProps(state, ownProps) {
     const { name, description = '', size = 'btn-sm', text = '' } = ownProps;
 
     let isInstalled = false;
-    if (state.installedView.data.find((item) => { return item.name === name })) {
-        isInstalled = true;
+    const installed = state.installedView.data.find((item) => { return item.name === name });
+    if (installed) {
+        isInstalled = installed.version;
     }
 
     const { isInstalling } = state.installButton || {

@@ -1,19 +1,22 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { PluginsList } from '../../components/PluginsList'
+import { InstalledPluginsList } from '../../components/InstalledPluginsList'
+import { FetchData } from '../../components/FetchData'
 
 const InstalledView = ({ data }) => (
     <div>
         <h3>Installed Plugins</h3>
-        <PluginsList data={data} className="row" itemContainerClass="col-md-6" />
+        <FetchData namespace="installedPlugins" query={`packages?n=${data.join(',')}`}>
+            <InstalledPluginsList className="row" itemContainerClass="col-md-6" />
+        </FetchData>
     </div>
 )
 
 function mapStateToProps(state, ownProps) {
     const { data } = state.installedView;
 
-    return { data }
+    return { data: data.map((item) => item.name) }
 }
 
 export default connect(mapStateToProps)(InstalledView)

@@ -23,7 +23,7 @@
     "webpack": "1.14.0"
   },
   "scripts": {
-    "watch": "webpack --progress --watch",
+    "watch": "webpack --progress --watch --hide-modules",
     "build:dist": "webpack --progress --config webpack.config.prod.js",
     "start": "react-scripts start",
     "build": "react-scripts build",

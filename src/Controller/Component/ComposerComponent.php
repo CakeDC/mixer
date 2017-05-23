@@ -119,9 +119,19 @@ class ComposerComponent extends Component
         return json_decode(file_get_contents($path), true);
     }
 
+    /**
+     * Get required packages of given type
+     *
+     * @param string $type
+     * @return array
+     */
     public function getRequiredPackages($type = self::TYPE_CAKEPHP_PLUGIN)
     {
         $required = $this->getRequired();
+        $composerLock = json_decode(file_get_contents(ROOT . DS . 'composer.lock'), true);
+        $installedPackages = collection(array_merge(Hash::get($composerLock, 'packages', []), Hash::get($composerLock, 'packages-dev', [])))
+            ->indexBy('name')
+            ->toArray();
 
         $packages = [];
         foreach ($required as $name) {
@@ -133,7 +143,13 @@ class ComposerComponent extends Component
                 continue;
             }
 
-            $packages[] = array_intersect_key($composer, array_flip(['name', 'description']));
+            $package = array_intersect_key($composer, array_flip(['name', 'description']));
+
+            if ($installed = Hash::get($installedPackages, $package['name'])) {
+                $package['version'] = Hash::get($installed, 'version');
+            }
+
+            $packages[] = $package;
         }
 
         return $packages;

@@ -11,6 +11,7 @@ export default combineReducers({
     homeNewReleases: fetchData('homeNewReleases'),
     pluginView: fetchData('pluginView'),
     searchResults: fetchData('searchResults'),
+    installedPlugins: fetchData('installedPlugins'),
     installedView,
     installButton
 })
