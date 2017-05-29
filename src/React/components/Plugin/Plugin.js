@@ -3,7 +3,7 @@ import { MarkdownPreview } from 'react-marked-markdown'
 import NumberFormat from 'react-number-format'
 import TimeAgo from 'timeago-react'
 
-import { InstallButton } from '../InstallButton'
+import { PluginButtons } from '../PluginButtons'
 
 const Plugin = ({ data, isFetching = false }) => (
     <div className="row">
@@ -44,10 +44,11 @@ const Plugin = ({ data, isFetching = false }) => (
                         </div>
                     </div>
                 </div>
+                {isFetching && <div className="overlay"><i className="fa fa-refresh fa-spin" /></div>}
             </div>}
             <div className="box box-solid">
                 <div className="box-body text-center">
-                    <InstallButton name={data.name} text=" Plugin" size="btn-lg" />
+                    <PluginButtons data={data} size="btn-lg" />
                 </div>
                 <div className="box-footer no-padding">
                     <ul className="nav nav-stacked">
@@ -70,6 +71,7 @@ const Plugin = ({ data, isFetching = false }) => (
                         </li>}
                     </ul>
                 </div>
+                {isFetching && <div className="overlay"><i className="fa fa-refresh fa-spin" /></div>}
             </div>
         </div>
     </div>

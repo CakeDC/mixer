@@ -11,8 +11,7 @@ Router::plugin(
 
         $routes->connect('/install', ['controller' => 'Mixer', 'action' => 'install']);
         $routes->connect('/uninstall', ['controller' => 'Mixer', 'action' => 'uninstall']);
+        $routes->connect('/update', ['controller' => 'Mixer', 'action' => 'update']);
         $routes->connect('/*', ['controller' => 'Mixer', 'action' => 'index']);
-
-        //$routes->fallbacks(DashedRoute::class);
     }
 );

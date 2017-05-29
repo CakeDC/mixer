@@ -1,11 +1,13 @@
 import 'whatwg-fetch'
 
-import { installed, uninstalled } from '../../views/InstalledView/actions'
+import { installed, uninstalled, updated } from '../../views/InstalledView/actions'
 
 export const REQUEST_INSTALL = 'REQUEST_INSTALL'
 export const RECEIVE_INSTALL = 'RECEIVE_INSTALL'
 export const REQUEST_UNINSTALL = 'REQUEST_UNINSTALL'
 export const RECEIVE_UNINSTALL = 'RECEIVE_UNINSTALL'
+export const REQUEST_UPDATE = 'REQUEST_UPDATE'
+export const RECEIVE_UPDATE = 'RECEIVE_UPDATE'
 
 function requestInstall(name) {
     return {
@@ -15,12 +17,29 @@ function requestInstall(name) {
 }
 
 function receiveInstall(dispatch, name, json) {
-    dispatch(installed(name, json.data.description))
+    dispatch(installed(name, json.data.description, json.data.latest_release))
 
     return {
         type: RECEIVE_INSTALL,
         name,
         data: json.data
+    }
+}
+
+function requestUpdate(name, version) {
+    return {
+        type: REQUEST_UPDATE,
+        name,
+        version
+    }
+}
+
+function receiveUpdate(dispatch, name, json) {
+    dispatch(updated(name, json.version))
+
+    return {
+        type: RECEIVE_UPDATE,
+        name
     }
 }
 
@@ -36,13 +55,12 @@ function receiveUninstall(dispatch, name, json) {
 
     return {
         type: RECEIVE_UNINSTALL,
-        name,
-        data: json.data
+        name
     }
 }
 
 function shouldAction(state, name) {
-    const results = state.installButton
+    const results = state.pluginButtons
     if (!results) {
         return true
     } else {
@@ -89,6 +107,29 @@ export function uninstall(name) {
                     })
                     .then(response => response.json())
                     .then(json => dispatch(receiveUninstall(dispatch, name, json)))
+            })
+        }
+    }
+}
+
+export function update(name, version) {
+    return (dispatch, getState) => {
+        if (shouldAction(getState(), name)) {
+            return dispatch(dispatch => {
+                dispatch(requestUpdate(name, version))
+
+                return fetch('update.json', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        package: name,
+                        version: version,
+                    })
+                })
+                    .then(response => response.json())
+                    .then(json => dispatch(receiveUpdate(dispatch, name, json)))
             })
         }
     }

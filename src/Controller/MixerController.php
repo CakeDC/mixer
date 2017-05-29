@@ -83,7 +83,7 @@ class MixerController extends AppController
 
         $this->set('data', $package);
         $this->set(compact('success', 'message', 'output'));
-        $this->set('_serialize', ['success', 'message', 'data', 'output']);
+        $this->set('_serialize', ['success', 'message', 'output', 'data']);
     }
 
     /**
@@ -101,9 +101,7 @@ class MixerController extends AppController
         }
 
         if ($pluginName = $this->_getPluginName($package)) {
-            if (!$this->_dispatchShell(['plugin', 'unload', $pluginName])) {
-                throw new \Exception('Could not unload plugin ' . $pluginName);
-            }
+            $this->_dispatchShell(['plugin', 'unload', $pluginName]);
         }
 
         $success = true;
@@ -121,6 +119,47 @@ class MixerController extends AppController
 
         $this->set(compact('success', 'message', 'output'));
         $this->set('_serialize', ['success', 'message', 'output']);
+    }
+
+    /**
+     * Update method
+     *
+     * @return \Cake\Http\Response
+     * @throws \Exception
+     */
+    public function update()
+    {
+        $this->request->allowMethod('post');
+
+        if (!$name = $this->request->getData('package')) {
+            throw new BadRequestException();
+        }
+
+        if (!$version = $this->request->getData('version')) {
+            throw new BadRequestException();
+        }
+
+        $http = new Client();
+        $response = $http->get(Configure::read('Mixer.api') . '/packages/' . $name);
+        if (!$package = Hash::get($response->json, 'data')) {
+            throw new NotFoundException();
+        }
+
+        $success = true;
+        $message = __d('Mixer', '{0} plugin successfully update', $package['name']);
+        if (!($output = $this->Composer->req($package['name'] . ':' . $version)) || strpos($output, 'Installation failed') !== false) {
+            $success = false;
+            $message = __d('Mixer', 'Failed updating {0} plugin', $package['name']);
+        }
+
+        if (!$this->request->is('json')) {
+            $this->Flash->set($message, ['element' => $success ? 'success' : 'error']);
+
+            return $this->redirect($this->request->referer());
+        }
+
+        $this->set(compact('success', 'message', 'output', 'version'));
+        $this->set('_serialize', ['success', 'message', 'output', 'version']);
     }
 
     /**

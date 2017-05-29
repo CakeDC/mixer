@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import { fetchData } from './components/FetchData/reducers'
-import { installButton } from './components/InstallButton/reducers'
+import { pluginButtons } from './components/PluginButtons/reducers'
 import { installedView } from './views/InstalledView/reducers'
 
 export default combineReducers({
@@ -13,5 +13,5 @@ export default combineReducers({
     searchResults: fetchData('searchResults'),
     installedPlugins: fetchData('installedPlugins'),
     installedView,
-    installButton
+    pluginButtons,
 })

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import TimeAgo from 'timeago-react'
 import NumberFormat from 'react-number-format'
 
-import { InstallButton } from '../InstallButton'
+import { PluginButtons } from '../PluginButtons'
 import { Loader } from '../Loader'
 
 const PluginListItem = ({ plugin, overlay = false }) => (
@@ -18,7 +18,7 @@ const PluginListItem = ({ plugin, overlay = false }) => (
         <div className="box-body">
             <p>{plugin.description}</p>
             <div className="direct-chat-info">
-                <InstallButton name={plugin.name} />
+                <PluginButtons data={plugin} className="pull-left" />
                 {plugin.latest_release_date && <span className="direct-chat-timestamp pull-right"><i className="fa fa-code-fork" /> {plugin.latest_release} released <TimeAgo datetime={plugin.latest_release_date} /></span>}
             </div>
         </div>
