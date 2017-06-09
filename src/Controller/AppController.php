@@ -3,7 +3,9 @@
 namespace CakeDC\Mixer\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Core\Configure;
 use Cake\Event\Event;
+use Cake\Network\Exception\NotFoundException;
 
 /**
  * Class AppController
@@ -17,6 +19,10 @@ class AppController extends Controller
     public function initialize()
     {
         parent::initialize();
+
+        if (!Configure::read('debug')) {
+            throw new NotFoundException();
+        }
 
         $this->loadComponent('CakeDC/Mixer.Composer');
         $this->loadComponent('RequestHandler');
