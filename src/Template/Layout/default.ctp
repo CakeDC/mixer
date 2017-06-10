@@ -8,7 +8,7 @@ use Cake\Core\Configure;
 <!DOCTYPE html>
 <html lang="<?= I18n::locale() ?>">
 <head>
-    <base href="<?= Router::url('/mixer/', true) ?>" />
+    <base href="<?= Router::url('/mixer/') ?>" />
     <?= $this->Html->charset() ?>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
