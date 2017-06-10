@@ -32,9 +32,9 @@ if (Configure::read('debug')) {
 }
 ```
 
-Now you can navigate to your app `/mixer` URL and start discovery and managing your plugins!
+Now you can navigate to your app `/mixer` URL and start discovery and managing your plugins! It searches through all packages on Packagist with type "cakephp-plugin" excluding CakePHP 2.x packages.
 
-**Warning:** we don't want you to use Mixer in production. That's why we're asking to add it to `require-dev` composer.json section and it will only work when `debug` is on.
+**Attention:** we don't want you to use Mixer in production. That's why we're asking to add it to `require-dev` composer.json section and it will only work when `debug` is on.
 
 Support
 -------
