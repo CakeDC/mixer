@@ -129,7 +129,10 @@ class ComposerComponent extends Component
     {
         $required = $this->getRequired();
         $composerLock = json_decode(file_get_contents(ROOT . DS . 'composer.lock'), true);
-        $installedPackages = collection(array_merge(Hash::get($composerLock, 'packages', []), Hash::get($composerLock, 'packages-dev', [])))
+        $installedPackages = collection(Hash::get($composerLock, 'packages', []))
+            ->indexBy('name')
+            ->toArray();
+        $installedPackagesDev = collection(Hash::get($composerLock, 'packages-dev', []))
             ->indexBy('name')
             ->toArray();
 
@@ -144,9 +147,13 @@ class ComposerComponent extends Component
             }
 
             $package = array_intersect_key($composer, array_flip(['name', 'description']));
+            $package['dev'] = false;
 
             if ($installed = Hash::get($installedPackages, $package['name'])) {
                 $package['version'] = Hash::get($installed, 'version');
+            } elseif ($installed = Hash::get($installedPackagesDev, $package['name'])) {
+                $package['version'] = Hash::get($installed, 'version');
+                $package['dev'] = true;
             }
 
             $packages[] = $package;

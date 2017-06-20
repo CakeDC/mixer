@@ -26,11 +26,12 @@ function receiveInstall(dispatch, name, json) {
     }
 }
 
-function requestUpdate(name, version) {
+function requestUpdate(name, version, dev) {
     return {
         type: REQUEST_UPDATE,
         name,
-        version
+        version,
+        dev,
     }
 }
 
@@ -112,11 +113,11 @@ export function uninstall(name) {
     }
 }
 
-export function update(name, version) {
+export function update(name, version, dev) {
     return (dispatch, getState) => {
         if (shouldAction(getState(), name)) {
             return dispatch(dispatch => {
-                dispatch(requestUpdate(name, version))
+                dispatch(requestUpdate(name, version, dev))
 
                 return fetch('update.json', {
                     method: 'POST',
@@ -126,6 +127,7 @@ export function update(name, version) {
                     body: JSON.stringify({
                         package: name,
                         version: version,
+                        dev: dev ? 1 : 0
                     })
                 })
                     .then(response => response.json())

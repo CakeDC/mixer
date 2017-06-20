@@ -139,6 +139,11 @@ class MixerController extends AppController
             throw new BadRequestException();
         }
 
+        $options = [];
+        if ($dev = $this->request->getData('dev')) {
+            $options['--dev'] = (bool)$dev;
+        }
+
         $http = new Client();
         $response = $http->get(Configure::read('Mixer.api') . '/packages/' . $name);
         if (!$package = Hash::get($response->json, 'data')) {
@@ -147,7 +152,7 @@ class MixerController extends AppController
 
         $success = true;
         $message = __d('Mixer', '{0} plugin successfully update', $package['name']);
-        if (!($output = $this->Composer->req($package['name'] . ':' . $version)) || strpos($output, 'Installation failed') !== false) {
+        if (!($output = $this->Composer->req($package['name'] . ':' . $version, $options)) || strpos($output, 'Installation failed') !== false) {
             $success = false;
             $message = __d('Mixer', 'Failed updating {0} plugin', $package['name']);
         }

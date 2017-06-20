@@ -35,10 +35,10 @@ class PluginButtons extends Component {
     handleUpdate(event) {
         event.preventDefault()
 
-        const { dispatch, data } = this.props
+        const { dispatch, data, dev } = this.props
 
         if (confirm('Are you sure you want to update ' + data.name + ' to ' + data.latest_release +  '?')) {
-            dispatch(update(data.name, data.latest_release))
+            dispatch(update(data.name, data.latest_release, dev))
         }
     }
 
@@ -68,16 +68,18 @@ function mapStateToProps(state, ownProps) {
     const { data, size = 'btn-sm', text = '', className = '' } = ownProps;
 
     let installedVersion = false;
+    let dev = false;
     const installed = state.installedView.data.find((item) => { return item.name === data.name });
     if (installed) {
         installedVersion = installed.version;
+        dev = installed.dev;
     }
 
     const { isInstalling } = state.pluginButtons || {
         isInstalling: false
     }
 
-    return { data, installedVersion, size, text, isInstalling, className }
+    return { data, installedVersion, size, text, isInstalling, className, dev }
 }
 
 export default connect(mapStateToProps)(PluginButtons)
