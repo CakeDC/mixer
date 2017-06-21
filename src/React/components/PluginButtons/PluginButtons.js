@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import compareVersions from 'compare-versions'
 
 import { install, uninstall, update } from './actions'
 
@@ -53,8 +54,8 @@ class PluginButtons extends Component {
 
         if (installedVersion) {
             children.push(<button className={`btn btn-warning btn-social btn-install ${size}`} onClick={this.handleUninstall} key="uninstall"><i className="fa fa-trash" /><span>Uninstall {installedVersion}</span></button>);
-            if (data.latest_release && installedVersion !== data.latest_release) {
-                children.push(<button className={`btn btn-primary btn-social btn-install ${size}`} onClick={this.handleUpdate} key="update"><i className="fa fa-refresh" /><span>Update to {data.latest_release}</span></button>);
+            if (data.latest_release && compareVersions(data.latest_release, installedVersion) > 0) {
+                children.push(<button className={`btn btn-info btn-social btn-install ${size}`} onClick={this.handleUpdate} key="update"><i className="fa fa-refresh" /><span>Update to {data.latest_release}</span></button>);
             }
         } else {
             children.push(<button className={`btn btn-primary btn-social btn-install ${size}`} onClick={this.handleInstall} key="install"><i className="fa fa-download" /><span>Install</span></button>);
