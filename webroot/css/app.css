@@ -99,10 +99,10 @@ a:hover {
 }
 .btn-install > :first-child {
     position: relative;
-    background: #D33D44;
-    -webkit-box-shadow: 0 5px 0 0 #af333c;
-    -moz-box-shadow: 0 5px 0 0 #af333c;
-    box-shadow: 0 5px 0 0 #af333c;
+    background: #00a65a;
+    -webkit-box-shadow: 0 5px 0 0 #008548;
+    -moz-box-shadow: 0 5px 0 0 #008548;
+    box-shadow: 0 5px 0 0 #008548;
     font-size: 1.2em;
     width: 40px;
     line-height: 1;
@@ -124,9 +124,9 @@ a:hover {
 .btn-xs.btn-install > :first-child {
     padding: 3px 8px 2px 8px;
     width: 26px;
-    -webkit-box-shadow: 0 3px 0 0 #af333c;
-    -moz-box-shadow: 0 3px 0 0 #af333c;
-    box-shadow: 0 3px 0 0 #af333c;
+    -webkit-box-shadow: 0 3px 0 0 #008548;
+    -moz-box-shadow: 0 3px 0 0 #008548;
+    box-shadow: 0 3px 0 0 #008548;
     line-height: 1;
 }
 
@@ -144,9 +144,9 @@ a:hover {
     width: 32px;
     line-height: 1;
     font-size: 1.2em;
-    -webkit-box-shadow: 0 4px 0 0 #af333c;
-    -moz-box-shadow: 0 4px 0 0 #af333c;
-    box-shadow: 0 4px 0 0 #af333c;
+    -webkit-box-shadow: 0 4px 0 0 #008548;
+    -moz-box-shadow: 0 4px 0 0 #008548;
+    box-shadow: 0 4px 0 0 #008548;
 }
 
 .btn-lg.btn-install span {
@@ -160,13 +160,27 @@ a:hover {
 }
 
 .btn-install.btn-warning > :first-child {
+    background: #dd4b39;
+    -webkit-box-shadow: 0 5px 0 0 #b13c2e;
+    -moz-box-shadow: 0 5px 0 0 #b13c2e;
+    box-shadow: 0 5px 0 0 #b13c2e;
+}
+
+.btn-sm.btn-install.btn-warning > :first-child {
+    background: #dd4b39;
+    -webkit-box-shadow: 0 4px 0 0 #b13c2e;
+    -moz-box-shadow: 0 4px 0 0 #b13c2e;
+    box-shadow: 0 4px 0 0 #b13c2e;
+}
+
+.btn-install.btn-info > :first-child {
     background: #f39c12;
     -webkit-box-shadow: 0 5px 0 0 #dc8f14;
     -moz-box-shadow: 0 5px 0 0 #dc8f14;
     box-shadow: 0 5px 0 0 #dc8f14;
 }
 
-.btn-sm.btn-install.btn-warning > :first-child {
+.btn-sm.btn-install.btn-info > :first-child {
     background: #f39c12;
     -webkit-box-shadow: 0 4px 0 0 #dc8f14;
     -moz-box-shadow: 0 4px 0 0 #dc8f14;
