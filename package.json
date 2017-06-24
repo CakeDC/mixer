@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "icheck": "^1.0.2",
     "promise-polyfill": "^6.0.2",
     "query-string": "^4.3.4",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-marked-markdown": "^1.4.2",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-icheck": "^0.3.8",
+    "react-markdown-renderer": "^1.3.0",
     "react-number-format": "^1.2.1",
     "react-redux": "^5.0.4",
     "react-router": "^4.1.1",
@@ -20,8 +22,7 @@
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
-    "react-scripts": "0.9.5",
-    "webpack": "1.14.0"
+    "react-scripts": "1.0.7"
   },
   "scripts": {
     "watch": "webpack --progress --watch --hide-modules",

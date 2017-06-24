@@ -7,7 +7,7 @@ import { FetchData } from '../../components/FetchData'
 const InstalledView = ({ data }) => (
     <div>
         <h3>Installed Plugins</h3>
-        <FetchData namespace="installedPlugins" query={`packages?n=${data.join(',')}`}>
+        <FetchData namespace="installedPlugins" query={`${window.apiUrl}/packages?n=${data.join(',')}`}>
             <InstalledPluginsList className="row" itemContainerClass="col-md-6" />
         </FetchData>
     </div>

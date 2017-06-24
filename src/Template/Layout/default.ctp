@@ -22,6 +22,7 @@ use Cake\Core\Configure;
     $this->append('css', $this->Html->css('CakeDC/Mixer.AdminLTE.min'));
     $this->append('css', $this->Html->css('CakeDC/Mixer.skin-red.min'));
     $this->append('css', $this->Html->css('CakeDC/Mixer.app'));
+    $this->append('css', $this->Html->css('CakeDC/Mixer.icheck/red'));
     ?>
     <?= $this->fetch('css') ?>
 

@@ -24,7 +24,7 @@ function fetchData(namespace, query) {
 
         window.scrollTo(0, 0);
 
-        return fetch(`${window.apiUrl}/${query}`)
+        return fetch(query)
             .then(response => response.json())
             .then(json => dispatch(receiveData(namespace, query, json)))
     }

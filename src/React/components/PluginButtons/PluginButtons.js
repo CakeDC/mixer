@@ -18,7 +18,7 @@ class PluginButtons extends Component {
 
         const { dispatch, data } = this.props
 
-        if (confirm('Are you sure you want to install ' + data.name + '?')) {
+        if (window.confirm('Are you sure you want to install ' + data.name + '?')) {
             dispatch(install(data.name))
         }
     }
@@ -28,7 +28,7 @@ class PluginButtons extends Component {
 
         const { dispatch, data } = this.props
 
-        if (confirm('Are you sure you want to uninstall ' + data.name + '?')) {
+        if (window.confirm('Are you sure you want to uninstall ' + data.name + '?')) {
             dispatch(uninstall(data.name))
         }
     }
@@ -38,7 +38,7 @@ class PluginButtons extends Component {
 
         const { dispatch, data, dev } = this.props
 
-        if (confirm('Are you sure you want to update ' + data.name + ' to ' + data.latest_release +  '?')) {
+        if (window.confirm('Are you sure you want to update ' + data.name + ' to ' + data.latest_release +  '?')) {
             dispatch(update(data.name, data.latest_release, dev))
         }
     }

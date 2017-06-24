@@ -3,10 +3,13 @@ namespace CakeDC\Mixer\Controller;
 
 use Cake\Console\Shell;
 use Cake\Core\Configure;
+use Cake\Datasource\ConnectionManager;
 use Cake\Http\Client;
 use Cake\Network\Exception\BadRequestException;
 use Cake\Network\Exception\NotFoundException;
+use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
+use Cake\Utility\Inflector;
 
 /**
  * Mixer Controller
@@ -165,6 +168,27 @@ class MixerController extends AppController
 
         $this->set(compact('success', 'message', 'output', 'version'));
         $this->set('_serialize', ['success', 'message', 'output', 'version']);
+    }
+
+    public function tables()
+    {
+        $db = ConnectionManager::get('default');
+        $tables = array_values(Hash::flatten($db->execute('SHOW TABLES')->fetchAll()));
+        sort($tables);
+
+        $success = true;
+        $data = [];
+        $tables[] = 'pages';
+        foreach ($tables as $name) {
+            $controllerExists = file_exists(APP . 'Controller' . DS . Inflector::camelize($name) . 'Controller.php');
+            $modelExists = file_exists(APP . 'Model' . DS . 'Table' . DS . Inflector::camelize($name) . 'Table.php');
+            $templateExists = file_exists(APP . 'Template' . DS . Inflector::camelize($name));
+
+            $data[] = compact('name', 'controllerExists', 'modelExists', 'templateExists');
+        }
+
+        $this->set(compact('success', 'data'));
+        $this->set('_serialize', ['success', 'data']);
     }
 
     /**

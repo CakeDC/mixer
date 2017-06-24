@@ -1,5 +1,5 @@
 import React from 'react'
-import { MarkdownPreview } from 'react-marked-markdown'
+import MarkdownRenderer from 'react-markdown-renderer'
 import NumberFormat from 'react-number-format'
 import TimeAgo from 'timeago-react'
 
@@ -10,7 +10,7 @@ const Plugin = ({ data, isFetching = false }) => (
         <div className="col-md-8">
             <div className="box box-default readme">
                 <div className="box-body with-border">
-                    <MarkdownPreview value={data.readme} />
+                    <MarkdownRenderer markdown={data.readme} />
                 </div>
                 {isFetching && <div className="overlay"><i className="fa fa-refresh fa-spin" /></div>}
             </div>
@@ -19,9 +19,9 @@ const Plugin = ({ data, isFetching = false }) => (
             {data.owner && <div className="box box-widget widget-user">
                 <div className="widget-user-header bg-dark-grey">
                     <h3 className="widget-user-username">{data.owner.name}</h3>
-                    <h5 className="widget-user-desc"><a href={`http://github.com/${data.owner.login}`} target="_blank">{data.owner.login}</a></h5>
+                    <h5 className="widget-user-desc"><a href={`http://github.com/${data.owner.login}`} target="_blank" rel="noopener noreferrer">{data.owner.login}</a></h5>
                 </div>
-                <a href={`http://github.com/${data.owner.login}`} target="_blank" className="widget-user-image"><img className="img-rounded" src={data.owner.avatar_url} alt="User Avatar" /></a>
+                <a href={`http://github.com/${data.owner.login}`} target="_blank" className="widget-user-image" rel="noopener noreferrer"><img className="img-rounded" src={data.owner.avatar_url} alt="User Avatar" /></a>
                 <div className="box-footer">
                     <div className="row">
                         <div className="col-sm-4 border-right">
@@ -52,7 +52,7 @@ const Plugin = ({ data, isFetching = false }) => (
                 </div>
                 <div className="box-footer no-padding">
                     <ul className="nav nav-stacked">
-                        <li><a href={`http://github.com/${data.name}`} target="_blank"><i className="fa fa-fw fa-github" /> {data.name}</a></li>
+                        <li><a href={`http://github.com/${data.name}`} target="_blank" rel="noopener noreferrer"><i className="fa fa-fw fa-github" /> {data.name}</a></li>
                         <li><span className="line"><i className="fa fa-fw fa-star" /> Stars <span className="pull-right badge"><NumberFormat value={data.stars} displayType={'text'} thousandSeparator={true} /></span></span></li>
                         <li><span className="line"><i className="fa fa-fw fa-download" /> Downloads <span className="pull-right badge"><NumberFormat value={data.downloads} displayType={'text'} thousandSeparator={true} /></span></span></li>
                         {data.latest_release && <li><span className="line"><i className="fa fa-fw fa-code-fork" /> Latest release <span className="pull-right badge">{data.latest_release}</span></span></li>}
@@ -63,7 +63,7 @@ const Plugin = ({ data, isFetching = false }) => (
                                     (Object.keys(data.composer[req]).length === 0 ? '' : <div key={req}>
                                         <strong>{req}</strong>
                                         <ul>
-                                            {Object.keys(data.composer[req]).map((key) => <li key={key}><a href={`http://github.com/${key}`} target="_blank">{key}</a>: {data.composer[req][key]}</li>)}
+                                            {Object.keys(data.composer[req]).map((key) => <li key={key}><a href={`http://github.com/${key}`} target="_blank" rel="noopener noreferrer">{key}</a>: {data.composer[req][key]}</li>)}
                                         </ul>
                                     </div>)
                                 )}
