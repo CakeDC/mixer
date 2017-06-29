@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 
 import { fetchData } from './components/FetchData/reducers'
 import { pluginButtons } from './components/PluginButtons/reducers'
+import { bakeryView } from './views/BakeryView/reducers'
 import { installedView } from './views/InstalledView/reducers'
 
 export default combineReducers({
@@ -15,4 +16,5 @@ export default combineReducers({
     tables: fetchData('tables'),
     installedView,
     pluginButtons,
+    bakeryView,
 })

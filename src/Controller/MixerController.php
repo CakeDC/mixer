@@ -170,6 +170,24 @@ class MixerController extends AppController
         $this->set('_serialize', ['success', 'message', 'output', 'version']);
     }
 
+    /**
+     * Bake method
+     *
+     * @return \Cake\Http\Response
+     * @throws \Exception
+     */
+    public function bake()
+    {
+        $this->request->allowMethod('post');
+
+        $success = true;
+
+        sleep(3);
+
+        $this->set(compact('success'));
+        $this->set('_serialize', ['success']);
+    }
+
     public function tables()
     {
         $db = ConnectionManager::get('default');
@@ -180,12 +198,17 @@ class MixerController extends AppController
         $data = [];
         $tables[] = 'pages';
         foreach ($tables as $name) {
+            if (in_array($name, ['phinxlog', 'schema_migrations'])) {
+                continue;
+            }
+
             $controllerExists = file_exists(APP . 'Controller' . DS . Inflector::camelize($name) . 'Controller.php');
             $modelExists = file_exists(APP . 'Model' . DS . 'Table' . DS . Inflector::camelize($name) . 'Table.php');
-            $templateExists = file_exists(APP . 'Template' . DS . Inflector::camelize($name));
+            $templatesExists = file_exists(APP . 'Template' . DS . Inflector::camelize($name));
 
-            $data[] = compact('name', 'controllerExists', 'modelExists', 'templateExists');
+            $data[] = compact('name', 'controllerExists', 'modelExists', 'templatesExists');
         }
+        //$data = [];
 
         $this->set(compact('success', 'data'));
         $this->set('_serialize', ['success', 'data']);

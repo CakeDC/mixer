@@ -17,12 +17,15 @@ a:hover {
     border-left: 3px solid transparent;
 }
 
-.navbar-nav > li > a:hover {
+.navbar-nav > li > a:hover, .navbar-nav > li > a.active  {
     color: #fff;
     background-color: #c43840;
     text-decoration: none;
 }
-.navbar-nav > li > a:active, .navbar-nav > li > a:focus {
+.navbar-nav > li > a.active  {
+    background-color: #c43840 !important;
+}
+.navbar-nav > li > a:active, .navbar-nav > li > a:focus, .navbar-nav > li > a.active {
     color: #fff;
     background: transparent;
 }
@@ -77,6 +80,26 @@ a:hover {
 .btn-primary:focus, .btn-primary:active {
     background-color: #a42a31 !important;
     border-color: #ccc !important;
+}
+
+.btn-default {
+    background: #404041 !important;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    padding-bottom: 1px;
+    -webkit-box-shadow: 0 4px 0 0 #323232;
+    -moz-box-shadow: 0 4px 0 0 #323232;
+    box-shadow: 0 4px 0 0 #323232;
+}
+.btn-default:hover, .btn-default:focus, .btn-default:active {
+    -webkit-filter: brightness(80%);
+    filter: brightness(80%);
+    transition: all .2s ease-in-out;
+    color: #fff !important;
+    -webkit-box-shadow: 0 4px 0 0 #323232;
+    -moz-box-shadow: 0 4px 0 0 #323232;
+    box-shadow: 0 4px 0 0 #323232;
 }
 
 .btn-install, .btn-install:hover, .btn-install:focus, .btn-install:active {
@@ -192,6 +215,44 @@ a:hover {
 }
     .plugin-buttons .btn {
         margin: 0 5px;
+    }
+
+.table-buttons {
+    margin: 0 -5px;
+}
+    .table-buttons .btn {
+        margin: 0 5px;
+    }
+
+.checkbox {
+    display: inline-block;
+    margin-right: 15px;
+}
+    .checkbox input {
+        display: none;
+    }
+    .checkbox label {
+        line-height: 12px;
+        vertical-align: baseline;
+        padding-left: 0;
+    }
+    .checkbox label:before {
+        font-family: FontAwesome, serif;
+        display: inline-block;
+        text-align: center;
+        content: "";
+        width: 18px;
+        height: 18px;
+        padding: 2px 0;
+        line-height: 12px;
+        border: 1px solid #dadada;
+        margin-right: 5px;
+        vertical-align: middle;
+        margin-top: -2px;
+    }
+    .checkbox input:checked + label:before {
+        content: "\f00c";
+        transition: all .2s ease-in-out;
     }
 
 .bg-dark-grey {

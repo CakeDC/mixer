@@ -3,7 +3,7 @@ import 'whatwg-fetch'
 export const REQUEST_DATA = 'REQUEST_DATA'
 export const RECEIVE_DATA = 'RECEIVE_DATA'
 
-function requestData(namespace, query) {
+export function requestData(namespace, query) {
     return {
         type: `${namespace}/${REQUEST_DATA}`,
         query
@@ -18,7 +18,7 @@ function receiveData(namespace, query, json) {
     }
 }
 
-function fetchData(namespace, query) {
+export function fetchData(namespace, query) {
     return dispatch => {
         dispatch(requestData(namespace, query))
 
