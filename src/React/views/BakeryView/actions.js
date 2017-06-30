@@ -4,6 +4,7 @@ import { fetchData } from '../../components/FetchData/actions'
 
 export const REQUEST_BAKE = 'REQUEST_BAKE'
 export const RECEIVE_BAKE = 'RECEIVE_BAKE'
+export const RECEIVE_BAKE_ENABLED = 'RECEIVE_BAKE_ENABLED'
 
 function requestBake(tables) {
     return {
@@ -12,10 +13,20 @@ function requestBake(tables) {
     }
 }
 
+function receiveBakeEnabled(enabled) {
+    return {
+        type: RECEIVE_BAKE_ENABLED,
+        enabled
+    }
+}
+
+export function updateBakeEnabled(enabled) {
+    return dispatch => {
+        dispatch(receiveBakeEnabled(enabled))
+    }
+}
+
 function receiveBake(dispatch, json) {
-    console.log('receiveBake');
-    //dispatch((dispatch, getState) => dispatch())
-    //dispatch((dispatch, getState) => dispatch(fetchData('tables', 'tables.json')))
     dispatch(baked())
 
     return {
@@ -23,23 +34,10 @@ function receiveBake(dispatch, json) {
     }
 }
 
-
 function baked() {
-    console.log('baked');
-    return (dispatch, getState) => {
+    return (dispatch) => {
         return dispatch(fetchData('tables', 'tables.json'))
     }
-    /*
-    return (dispatch, getState) => {
-        return dispatch(dispatch => {
-            dispatch(requestData('tables', 'tables.json'))
-        })
-    }
-    return (dispatch) => {
-        return dispatch(dispatch => {
-            dispatch(requestData('tables', 'tables.json'))
-        })
-    }*/
 }
 
 function shouldAction(state) {
@@ -51,20 +49,15 @@ function shouldAction(state) {
     }
 }
 
-export function bake(tables) {
+export function bake(form) {
     return (dispatch, getState) => {
         if (shouldAction(getState())) {
             return dispatch(dispatch => {
-                dispatch(requestBake(tables))
+                dispatch(requestBake(form))
 
                 return fetch('bake.json', {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            tables
-                        })
+                        body: new FormData(form)
                     })
                     .then(response => response.json())
                     .then(json => dispatch(receiveBake(dispatch, json)))

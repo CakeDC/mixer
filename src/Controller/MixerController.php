@@ -182,12 +182,31 @@ class MixerController extends AppController
 
         $success = true;
 
-        sleep(3);
+        $tables = (array)$this->request->getData('tables');
+        foreach ($tables as $table => $subCommands) {
+            foreach ($subCommands as $subCommand => $run) {
+                if (!(int)$run) {
+                    continue;
+                }
+
+                $args = ['bake', Inflector::singularize(strtolower($subCommand)), $table, '--force'];
+
+                if (!$this->_dispatchShell($args)) {
+                    throw new \Exception("Could not bake {$subCommand} for {$table}");
+                }
+            }
+        }
 
         $this->set(compact('success'));
         $this->set('_serialize', ['success']);
     }
 
+    /**
+     * Get database tables
+     *
+     * @return \Cake\Http\Response
+     * @throws \Exception
+     */
     public function tables()
     {
         $db = ConnectionManager::get('default');
@@ -196,7 +215,7 @@ class MixerController extends AppController
 
         $success = true;
         $data = [];
-        $tables[] = 'pages';
+        //$tables[] = 'pages';
         foreach ($tables as $name) {
             if (in_array($name, ['phinxlog', 'schema_migrations'])) {
                 continue;
@@ -208,7 +227,6 @@ class MixerController extends AppController
 
             $data[] = compact('name', 'controllerExists', 'modelExists', 'templatesExists');
         }
-        //$data = [];
 
         $this->set(compact('success', 'data'));
         $this->set('_serialize', ['success', 'data']);

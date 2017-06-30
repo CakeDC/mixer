@@ -1,8 +1,8 @@
-import { REQUEST_BAKE, RECEIVE_BAKE } from './actions'
+import { REQUEST_BAKE, RECEIVE_BAKE, RECEIVE_BAKE_ENABLED } from './actions'
 
 const initialState = {
     isFetching: false,
-    tables: []
+    tables: {}
 }
 
 const bakeryView = (state = initialState, action) => {
@@ -14,6 +14,10 @@ const bakeryView = (state = initialState, action) => {
         case RECEIVE_BAKE:
             return Object.assign({}, state, {
                 isFetching: false
+            })
+        case RECEIVE_BAKE_ENABLED:
+            return Object.assign({}, state, {
+                enabled: action.enabled
             })
         default:
             return state

@@ -40,14 +40,12 @@ class SearchForm extends Component {
                         className="input-lg form-control"
                         value={this.state.q}
                         onChange={this.handleInput} />
-                    <span className="input-group-btn"><button className="btn-lg btn btn-primary" type="submit"><i className="fa fa-search"></i></button></span>
+                    <span className="input-group-btn"><button className="btn-lg btn btn-primary" type="submit"><i className="fa fa-search" /></button></span>
                 </div>
             </form>
         );
     }
 }
-
-//export default SearchForm
 
 function mapStateToProps(state, ownProps) {
     const { q } = queryString.parse(ownProps.location.search) || {
@@ -57,5 +55,4 @@ function mapStateToProps(state, ownProps) {
     return { q }
 }
 
-//export default withRouter(connect(mapStateToProps)(SearchForm))
 export default withRouter(connect(mapStateToProps)(SearchForm))

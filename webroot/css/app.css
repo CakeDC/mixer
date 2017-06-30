@@ -82,7 +82,7 @@ a:hover {
     border-color: #ccc !important;
 }
 
-.btn-default {
+.btn-default, .btn-default:focus, .btn-default:active {
     background: #404041 !important;
     color: #fff;
     text-decoration: none;
@@ -92,7 +92,7 @@ a:hover {
     -moz-box-shadow: 0 4px 0 0 #323232;
     box-shadow: 0 4px 0 0 #323232;
 }
-.btn-default:hover, .btn-default:focus, .btn-default:active {
+.btn-default:hover {
     -webkit-filter: brightness(80%);
     filter: brightness(80%);
     transition: all .2s ease-in-out;

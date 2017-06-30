@@ -25,7 +25,7 @@ ReactDOM.render(
                 <Route exact path="/" component={HomeView} />
                 <Route path="/search" component={SearchView} />
                 <Route path="/installed" component={InstalledView} />
-                <Route path="/bakery" component={BakeryView} />
+                <Route path="/baking-room" component={BakeryView} />
                 <Route path="/view/:owner/:repo" component={PluginView} />
             </App>
         </ConnectedRouter>

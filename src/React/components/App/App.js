@@ -18,7 +18,7 @@ const App = ({ children, push }) => (
                 </div>
                 <div id="navbar" className="navbar-collapse collapse">
                     <ul className="nav navbar-nav navbar-right">
-                        <li><NavLink to="/bakery" activeClassName="active">Bakery</NavLink></li>
+                        <li><NavLink to="/baking-room" activeClassName="active">Baking Room</NavLink></li>
                         <li><NavLink to="/installed" activeClassName="active">Installed Plugins</NavLink></li>
                     </ul>
                 </div>
