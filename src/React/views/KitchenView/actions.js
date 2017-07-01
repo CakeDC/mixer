@@ -41,7 +41,7 @@ function baked() {
 }
 
 function shouldAction(state) {
-    const results = state.bakeryView
+    const results = state.kitchenView
     if (!results) {
         return true
     } else {

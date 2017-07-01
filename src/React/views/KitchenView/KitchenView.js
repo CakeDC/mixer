@@ -5,7 +5,7 @@ import { FetchData } from '../../components/FetchData'
 import { TablesList } from '../../components/TablesList'
 import { bake, updateBakeEnabled } from './actions'
 
-class BakeryView extends Component {
+class KitchenView extends Component {
     constructor(props) {
         super(props)
 
@@ -45,7 +45,7 @@ class BakeryView extends Component {
 
         return <form action="" ref={(form) => { this.form = form }}>
             <a href="" className="btn btn-default btn-sm pull-right" onClick={this.handleCheckAll}>Check All</a>
-            <h3>Baking Room</h3>
+            <h3>Kitchen</h3>
             <p>We've found the following tables in your database. Here you can generate skeleton application code for them.</p>
             <FetchData namespace="tables" query="tables.json">
                 <TablesList onSelectionChange={this.onSelectionChange} />
@@ -59,7 +59,7 @@ class BakeryView extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-    const { isFetching, enabled } = state.bakeryView || {
+    const { isFetching, enabled } = state.kitchenView || {
         isFetching: false,
         enabled: false
     }
@@ -67,4 +67,4 @@ function mapStateToProps(state, ownProps) {
     return { isFetching, enabled }
 }
 
-export default connect(mapStateToProps)(BakeryView)
+export default connect(mapStateToProps)(KitchenView)

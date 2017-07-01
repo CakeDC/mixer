@@ -1,11 +1,9 @@
-<p align="center"><img src="http://21d604f1f8eef14e4b21-06ee1d56e12597daffea8bb763711d95.r1.cf2.rackcdn.com/Mixer-CakePHP-Logo-Color.svg" height="46"></p>
+[![Mixer](webroot/img/logo.png)](https://packagist.org/packages/CakeDC/mixerd)
 
-<p align="center">
-<a href="https://packagist.org/packages/CakeDC/mixer"><img src="https://poser.pugx.org/CakeDC/mixer/v/stable.png" alt="Latest Version"></a>
-<a href="https://packagist.org/packages/CakeDC/mixer"><img src="https://poser.pugx.org/CakeDC/mixer/license.svg" alt="License"></a>
-</p>
+[![Latest Version](https://poser.pugx.org/CakeDC/mixer/v/stable.png)](https://packagist.org/packages/CakeDC/mixerd)
+[![License](https://poser.pugx.org/CakeDC/mixer/license.svg)](https://packagist.org/packages/CakeDC/mixer)
 
-A plugin to discover and manage CakePHP plugins.
+A plugin to discover and manage CakePHP plugins and generate skeleton application code.
 
 Requirements
 ------------

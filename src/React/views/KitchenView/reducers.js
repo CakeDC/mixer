@@ -5,7 +5,7 @@ const initialState = {
     tables: {}
 }
 
-const bakeryView = (state = initialState, action) => {
+const kitchenView = (state = initialState, action) => {
     switch(action.type) {
         case REQUEST_BAKE:
             return Object.assign({}, state, {
@@ -24,4 +24,4 @@ const bakeryView = (state = initialState, action) => {
     }
 }
 
-export { bakeryView }
+export { kitchenView }

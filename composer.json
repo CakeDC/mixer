@@ -1,8 +1,8 @@
 {
     "name": "cakedc/mixer",
-    "description": "A plugin to discover and manage CakePHP plugins",
+    "description": "A plugin to discover and manage CakePHP plugins and generate skeleton application code.",
     "type": "cakephp-plugin",
-    "keywords": ["cakephp", "plugin", "discovery", "update", "mixer"],
+    "keywords": ["cakephp", "plugin", "discovery", "update", "skeleton", "generate", "mixer"],
     "homepage": "https://github.com/CakeDC/mixer",
     "license": "MIT",
     "authors": [

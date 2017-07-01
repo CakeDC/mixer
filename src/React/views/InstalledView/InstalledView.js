@@ -8,7 +8,7 @@ const InstalledView = ({ data }) => (
     <div>
         <h3>Installed Plugins</h3>
         <FetchData namespace="installedPlugins" query={`${window.apiUrl}/packages?n=${data.join(',')}`}>
-            <InstalledPluginsList className="row" itemContainerClass="col-md-6" />
+            <InstalledPluginsList className="row list" itemContainerClass="col-md-6 list-item" />
         </FetchData>
     </div>
 )
