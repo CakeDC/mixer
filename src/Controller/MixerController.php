@@ -3,11 +3,11 @@ namespace CakeDC\Mixer\Controller;
 
 use Cake\Console\Shell;
 use Cake\Core\Configure;
+use Cake\Core\Plugin;
 use Cake\Datasource\ConnectionManager;
 use Cake\Http\Client;
 use Cake\Network\Exception\BadRequestException;
 use Cake\Network\Exception\NotFoundException;
-use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
 
@@ -182,6 +182,8 @@ class MixerController extends AppController
 
         $success = true;
 
+        Plugin::load('Bake');
+
         $tables = (array)$this->request->getData('tables');
         foreach ($tables as $table => $subCommands) {
             foreach ($subCommands as $subCommand => $run) {
@@ -189,7 +191,7 @@ class MixerController extends AppController
                     continue;
                 }
 
-                $args = ['bake', Inflector::singularize(strtolower($subCommand)), $table, '--force'];
+                $args = ['bake', Inflector::singularize(strtolower($subCommand)), Inflector::camelize($table), '--force'];
 
                 if (!$this->_dispatchShell($args)) {
                     throw new \Exception("Could not bake {$subCommand} for {$table}");
@@ -209,27 +211,33 @@ class MixerController extends AppController
      */
     public function tables()
     {
-        $db = ConnectionManager::get('default');
-        $tables = array_values(Hash::flatten($db->execute('SHOW TABLES')->fetchAll()));
-        sort($tables);
-
         $success = true;
         $data = [];
-        //$tables[] = 'pages';
-        foreach ($tables as $name) {
-            if (in_array($name, ['phinxlog', 'schema_migrations'])) {
-                continue;
+
+        try {
+            /** @var \Cake\Database\Connection $db */
+            $db = ConnectionManager::get('default');
+
+            $tables = array_values(Hash::flatten($db->execute('SHOW TABLES')->fetchAll()));
+            sort($tables);
+            foreach ($tables as $name) {
+                if (in_array($name, ['phinxlog', 'schema_migrations', '__schema_version'])) {
+                    continue;
+                }
+
+                $controllerExists = file_exists(APP . 'Controller' . DS . Inflector::camelize($name) . 'Controller.php');
+                $modelExists = file_exists(APP . 'Model' . DS . 'Table' . DS . Inflector::camelize($name) . 'Table.php');
+                $templatesExists = file_exists(APP . 'Template' . DS . Inflector::camelize($name));
+
+                $data[] = compact('name', 'controllerExists', 'modelExists', 'templatesExists');
             }
-
-            $controllerExists = file_exists(APP . 'Controller' . DS . Inflector::camelize($name) . 'Controller.php');
-            $modelExists = file_exists(APP . 'Model' . DS . 'Table' . DS . Inflector::camelize($name) . 'Table.php');
-            $templatesExists = file_exists(APP . 'Template' . DS . Inflector::camelize($name));
-
-            $data[] = compact('name', 'controllerExists', 'modelExists', 'templatesExists');
+        } catch (\Exception $e) {
+            $success = false;
+            $message = $e->getMessage();
         }
 
-        $this->set(compact('success', 'data'));
-        $this->set('_serialize', ['success', 'data']);
+        $this->set(compact('success', 'data', 'message'));
+        $this->set('_serialize', ['success', 'data', 'message']);
     }
 
     /**
@@ -258,5 +266,4 @@ class MixerController extends AppController
     {
         return (new Shell())->dispatchShell(implode(' ', $args)) == Shell::CODE_SUCCESS;
     }
-
 }
