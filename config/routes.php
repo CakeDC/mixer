@@ -12,6 +12,8 @@ Router::plugin(
         $routes->connect('/install', ['controller' => 'Mixer', 'action' => 'install']);
         $routes->connect('/uninstall', ['controller' => 'Mixer', 'action' => 'uninstall']);
         $routes->connect('/update', ['controller' => 'Mixer', 'action' => 'update']);
+        $routes->connect('/tables', ['controller' => 'Mixer', 'action' => 'tables']);
+        $routes->connect('/bake', ['controller' => 'Mixer', 'action' => 'bake']);
         $routes->connect('/*', ['controller' => 'Mixer', 'action' => 'index']);
     }
 );

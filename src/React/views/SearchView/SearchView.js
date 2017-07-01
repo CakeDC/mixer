@@ -5,7 +5,7 @@ import { FetchData } from '../../components/FetchData'
 import { PluginsList } from '../../components/PluginsList'
 
 const SearchView = ({ location }) => (
-    <FetchData namespace="searchResults" query={`packages?q=${queryString.parse(location.search).q || ''}&sort=stars&direction=desc`}>
+    <FetchData namespace="searchResults" query={`${window.apiUrl}/packages?q=${queryString.parse(location.search).q || ''}&sort=stars&direction=desc`}>
         <PluginsList />
     </FetchData>
 )

@@ -10,6 +10,8 @@ import { SearchView } from './views/SearchView'
 import { HomeView } from './views/HomeView'
 import { PluginView } from './views/PluginView'
 import { InstalledView } from './views/InstalledView'
+import { KitchenView } from './views/KitchenView'
+
 import { store, history } from './store'
 
 if (!window.Promise) {
@@ -23,6 +25,7 @@ ReactDOM.render(
                 <Route exact path="/" component={HomeView} />
                 <Route path="/search" component={SearchView} />
                 <Route path="/installed" component={InstalledView} />
+                <Route path="/kitchen" component={KitchenView} />
                 <Route path="/view/:owner/:repo" component={PluginView} />
             </App>
         </ConnectedRouter>
