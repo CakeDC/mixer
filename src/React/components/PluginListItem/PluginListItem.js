@@ -11,8 +11,8 @@ const PluginListItem = ({ plugin, overlay = false }) => (
         <div className="box-header with-border">
             <h3 className="box-title"><Link to={"/view/" + plugin.name}>{plugin.name}</Link></h3>
             <div className="box-tools pull-right">
-                {plugin.downloads !== undefined ? (<span className="btn btn-box-tool"><i className="fa fa-download" /> <NumberFormat value={plugin.downloads} displayType={'text'} thousandSeparator={true} /></span>) : ''}
-                {plugin.stars !== undefined ? (<span className="btn btn-box-tool"><i className="fa fa-star" /> <NumberFormat value={plugin.stars} displayType={'text'} thousandSeparator={true} /></span>) : ''}
+                {plugin.downloads !== undefined ? (<span className="btn-box-tool"><i className="fa fa-download" /> <NumberFormat value={plugin.downloads} displayType={'text'} thousandSeparator={true} /></span>) : ''}
+                {plugin.stars !== undefined ? (<span className="btn-box-tool"><i className="fa fa-star" /> <NumberFormat value={plugin.stars} displayType={'text'} thousandSeparator={true} /></span>) : ''}
             </div>
         </div>
         <div className="box-body">

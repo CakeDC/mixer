@@ -271,6 +271,13 @@ a:hover {
     background: #fff;
 }
 
+.box-tools .btn-box-tool {
+    display: inline-block;
+    line-height: 1.42857143;
+    font-weight: 400;
+    vertical-align: middle;
+}
+
 .box-empty .box-body {
     min-height: 123px;
 }
