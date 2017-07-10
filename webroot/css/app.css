@@ -4,10 +4,10 @@ body {
 }
 
 a {
-    text-decoration: underline;
+    text-decoration: underline !important;
 }
 a:hover {
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 .nav > li > .line {
@@ -284,6 +284,10 @@ a:hover {
 
 .direct-chat-timestamp {
     margin-top: 5px;
+}
+
+#side .nav > li > a {
+    display: inline;
 }
 
 #search {

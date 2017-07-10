@@ -15,7 +15,7 @@ const Plugin = ({ data, isFetching = false }) => (
                 {isFetching && <div className="overlay"><i className="fa fa-refresh fa-spin" /></div>}
             </div>
         </div>
-        <div className="col-md-4">
+        <div className="col-md-4" id="side">
             {data.owner && <div className="box box-widget widget-user">
                 <div className="widget-user-header bg-dark-grey">
                     <h3 className="widget-user-username">{data.owner.name}</h3>
@@ -52,7 +52,7 @@ const Plugin = ({ data, isFetching = false }) => (
                 </div>
                 <div className="box-footer no-padding">
                     <ul className="nav nav-stacked">
-                        <li><a href={`http://github.com/${data.name}`} target="_blank" rel="noopener noreferrer"><i className="fa fa-fw fa-github" /> {data.name}</a></li>
+                        <li><span className="line"><i className="fa fa-fw fa-github" /> <a href={data.repository} target="_blank" rel="noopener noreferrer">{data.repository.split('/github.com/')[1]}</a></span></li>
                         <li><span className="line"><i className="fa fa-fw fa-star" /> Stars <span className="pull-right badge"><NumberFormat value={data.stars} displayType={'text'} thousandSeparator={true} /></span></span></li>
                         <li><span className="line"><i className="fa fa-fw fa-download" /> Downloads <span className="pull-right badge"><NumberFormat value={data.downloads} displayType={'text'} thousandSeparator={true} /></span></span></li>
                         {data.latest_release && <li><span className="line"><i className="fa fa-fw fa-code-fork" /> Latest release <span className="pull-right badge">{data.latest_release}</span></span></li>}
