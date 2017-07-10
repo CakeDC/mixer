@@ -52,7 +52,7 @@ const Plugin = ({ data, isFetching = false }) => (
                 </div>
                 <div className="box-footer no-padding">
                     <ul className="nav nav-stacked">
-                        <li><span className="line"><i className="fa fa-fw fa-github" /> <a href={data.repository} target="_blank" rel="noopener noreferrer">{data.repository.split('/github.com/')[1]}</a></span></li>
+                        {data.repository && <li><span className="line"><i className="fa fa-fw fa-github" /> <a href={data.repository} target="_blank" rel="noopener noreferrer">{data.repository.split('/github.com/')[1]}</a></span></li>}
                         <li><span className="line"><i className="fa fa-fw fa-star" /> Stars <span className="pull-right badge"><NumberFormat value={data.stars} displayType={'text'} thousandSeparator={true} /></span></span></li>
                         <li><span className="line"><i className="fa fa-fw fa-download" /> Downloads <span className="pull-right badge"><NumberFormat value={data.downloads} displayType={'text'} thousandSeparator={true} /></span></span></li>
                         {data.latest_release && <li><span className="line"><i className="fa fa-fw fa-code-fork" /> Latest release <span className="pull-right badge">{data.latest_release}</span></span></li>}

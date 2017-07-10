@@ -51,11 +51,7 @@ class MixerController extends AppController
             throw new BadRequestException();
         }
 
-        $http = new Client();
-        $response = $http->get(Configure::read('Mixer.api') . '/packages/' . $name);
-        if (!$package = Hash::get($response->json, 'data')) {
-            throw new NotFoundException();
-        }
+        $package = $this->_getApiResponse("packages/{$name}");
 
         $success = true;
         $message = __d('Mixer', '{0} plugin successfully installed', $package['name']);
@@ -147,11 +143,7 @@ class MixerController extends AppController
             $options['--dev'] = (bool)$dev;
         }
 
-        $http = new Client();
-        $response = $http->get(Configure::read('Mixer.api') . '/packages/' . $name);
-        if (!$package = Hash::get($response->json, 'data')) {
-            throw new NotFoundException();
-        }
+        $package = $this->_getApiResponse("packages/{$name}");
 
         $success = true;
         $message = __d('Mixer', '{0} plugin successfully update', $package['name']);
@@ -277,5 +269,21 @@ class MixerController extends AppController
         });
 
         return $tables;
+    }
+
+    /**
+     *  Make Mixer API request and return decoded response
+     *
+     * @return array
+     */
+    protected function _getApiResponse($path)
+    {
+        $http = new Client();
+        $response = $http->get('http:' . Configure::read('Mixer.api') . '/' . $path);
+        if (!$data = Hash::get($response->json, 'data')) {
+            throw new NotFoundException();
+        }
+
+        return $data;
     }
 }
