@@ -215,16 +215,8 @@ class MixerController extends AppController
         $data = [];
 
         try {
-            /** @var \Cake\Database\Connection $db */
-            $db = ConnectionManager::get('default');
-
-            $tables = array_values(Hash::flatten($db->execute('SHOW TABLES')->fetchAll()));
-            sort($tables);
+            $tables = $this->_getTables();
             foreach ($tables as $name) {
-                if (in_array($name, ['phinxlog', 'schema_migrations', '__schema_version'])) {
-                    continue;
-                }
-
                 $controllerExists = file_exists(APP . 'Controller' . DS . Inflector::camelize($name) . 'Controller.php');
                 $modelExists = file_exists(APP . 'Model' . DS . 'Table' . DS . Inflector::camelize($name) . 'Table.php');
                 $templatesExists = file_exists(APP . 'Template' . DS . Inflector::camelize($name));
@@ -265,5 +257,25 @@ class MixerController extends AppController
     protected function _dispatchShell($args)
     {
         return (new Shell())->dispatchShell(implode(' ', $args)) == Shell::CODE_SUCCESS;
+    }
+
+    /**
+     *  Get filtered list of tables in DB
+     *
+     * @return array
+     */
+    protected function _getTables()
+    {
+        /** @var \Cake\Database\Connection $db */
+        $db = ConnectionManager::get('default');
+        $schema = $db->getSchemaCollection();
+        $tables = $schema->listTables();
+        sort($tables);
+        $tables = array_diff($tables, ['i18n', 'cake_sessions', 'phinxlog']);
+        $tables = array_filter($tables, function($table) {
+            return substr($table, -9) !== '_phinxlog';
+        });
+
+        return $tables;
     }
 }
