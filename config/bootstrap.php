@@ -2,5 +2,5 @@
 use Cake\Core\Configure;
 
 Configure::write('Mixer', [
-    'api' => '//mixer-api.cakedc.com/api/v1'
+    'api' => 'https://mixer-api.cakedc.com/api/v1'
 ]);
