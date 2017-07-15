@@ -55,7 +55,8 @@ class MixerController extends AppController
 
         $success = true;
         $message = __d('Mixer', '{0} plugin successfully installed', $package['name']);
-        if (!($output = $this->Composer->req($package['name'])) || strpos($output, 'Installation failed') !== false) {
+        $output = $this->Composer->req($package['name']);
+        if (strpos($output, 'Writing lock file') === false) {
             $success = false;
             $message = __d('Mixer', 'Failed installing {0} plugin', $package['name']);
         } elseif ($pluginName = $this->_getPluginName($package['name'])) {
