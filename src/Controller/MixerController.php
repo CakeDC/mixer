@@ -105,7 +105,7 @@ class MixerController extends AppController
         }
 
         $success = true;
-        $message = __d('Mixer', '{0} plugin successfully remove', $package);
+        $message = __d('Mixer', '{0} plugin successfully removed', $package);
         if (!$output = $this->Composer->remove($package)) {
             $success = false;
             $message = __d('Mixer', 'Failed removing {0} plugin', $package);
@@ -280,7 +280,7 @@ class MixerController extends AppController
     protected function _getApiResponse($path)
     {
         $http = new Client();
-        $response = $http->get('http:' . Configure::read('Mixer.api') . '/' . $path);
+        $response = $http->get(Configure::read('Mixer.api') . '/' . $path);
         if (!$data = Hash::get($response->json, 'data')) {
             throw new NotFoundException();
         }
