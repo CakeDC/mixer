@@ -22,7 +22,7 @@
     },
     "require": {
         "php": ">=5.5.9",
-        "cakephp/cakephp": "3.4.*",
+        "cakephp/cakephp": "^3.4",
         "composer/composer": "^1.4"
     },
     "require-dev": {
