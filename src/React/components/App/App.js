@@ -20,7 +20,7 @@ const App = ({ children, push }) => (
                     <ul className="nav navbar-nav navbar-right">
                         <li><NavLink to="/kitchen" activeClassName="active">Kitchen</NavLink></li>
                         <li><NavLink to="/installed" activeClassName="active">Installed Plugins</NavLink></li>
-                        <li><NavLink to="https://github.com/FriendsOfCake/awesome-cakephp">Awesome-List</NavLink></li>
+                        <li><a href="https://github.com/FriendsOfCake/awesome-cakephp" target="_blank" rel="noopener noreferrer">Awesome List</a></li>
                     </ul>
                 </div>
             </div>
