@@ -6,7 +6,7 @@ use Cake\Routing\Router;
 use Cake\Core\Configure;
 ?>
 <!DOCTYPE html>
-<html lang="<?= I18n::locale() ?>">
+<html lang="<?= I18n::getLocale() ?>">
 <head>
     <base href="<?= Router::url('/mixer/') ?>" />
     <?= $this->Html->charset() ?>

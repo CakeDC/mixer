@@ -7,7 +7,7 @@ Router::plugin(
     'CakeDC/Mixer',
     ['path' => '/mixer'],
     function (RouteBuilder $routes) {
-        $routes->extensions(['json']);
+        $routes->setExtensions(['json']);
 
         $routes->connect('/install', ['controller' => 'Mixer', 'action' => 'install']);
         $routes->connect('/uninstall', ['controller' => 'Mixer', 'action' => 'uninstall']);
