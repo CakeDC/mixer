@@ -21,7 +21,7 @@
         "source": "https://github.com/CakeDC/mixer"
     },
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=5.6.0",
         "cakephp/cakephp": "^3.5",
         "composer/composer": "^1.4"
     },
