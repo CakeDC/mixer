@@ -6,8 +6,8 @@ use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Datasource\ConnectionManager;
 use Cake\Http\Client;
-use Cake\Network\Exception\BadRequestException;
-use Cake\Network\Exception\NotFoundException;
+use Cake\Http\Exception\BadRequestException;
+use Cake\Http\Exception\NotFoundException;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
 
@@ -17,18 +17,32 @@ use Cake\Utility\Inflector;
  */
 class MixerController extends AppController
 {
-
-    public function initialize()
+    /**
+     * @var array
+     */
+    private $data = [];
+    /**
+     * Initialization hook method.
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function initialize(): void
     {
         parent::initialize();
 
         set_time_limit(600);
+        $data = $this->request->input();
+        $this->data = $this->request->getData();
+        if ($data) {
+            $this->data += json_decode($data, true);
+        }
     }
 
     /**
      * Index method
      *
-     * @return \Cake\Network\Response|null
+     * @return \Cake\Http\Response|null
      */
     public function index()
     {
@@ -38,6 +52,15 @@ class MixerController extends AppController
     }
 
     /**
+     * Get data from streamData
+     *
+     * @param string $name The field name to get
+     */
+    protected function getData($name)
+    {
+        return $this->data[$name] ?? null;
+    }
+    /**
      * Install method
      *
      * @return \Cake\Http\Response
@@ -46,8 +69,7 @@ class MixerController extends AppController
     public function install()
     {
         $this->request->allowMethod('post');
-
-        if (!$name = $this->request->getData('package')) {
+        if (!$name = $this->getData('package')) {
             throw new BadRequestException();
         }
 
@@ -96,7 +118,7 @@ class MixerController extends AppController
     {
         $this->request->allowMethod('post');
 
-        if (!$package = $this->request->getData('package')) {
+        if (!$package = $this->getData('package')) {
             throw new BadRequestException();
         }
 
@@ -131,16 +153,16 @@ class MixerController extends AppController
     {
         $this->request->allowMethod('post');
 
-        if (!$name = $this->request->getData('package')) {
+        if (!$name = $this->getData('package')) {
             throw new BadRequestException();
         }
 
-        if (!$version = $this->request->getData('version')) {
+        if (!$version = $this->getData('version')) {
             throw new BadRequestException();
         }
 
         $options = [];
-        if ($dev = $this->request->getData('dev')) {
+        if ($dev = $this->getData('dev')) {
             $options['--dev'] = (bool)$dev;
         }
 
@@ -177,7 +199,7 @@ class MixerController extends AppController
 
         Plugin::load('Bake');
 
-        $tables = (array)$this->request->getData('tables');
+        $tables = (array)$this->getData('tables');
         foreach ($tables as $table => $subCommands) {
             foreach ($subCommands as $subCommand => $run) {
                 if (!(int)$run) {
@@ -281,7 +303,7 @@ class MixerController extends AppController
     {
         $http = new Client();
         $response = $http->get(Configure::read('Mixer.api') . '/' . $path);
-        if (!$data = Hash::get($response->json, 'data')) {
+        if (!$data = Hash::get($response->getJson(), 'data')) {
             throw new NotFoundException();
         }
 
