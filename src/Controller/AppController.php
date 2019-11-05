@@ -4,8 +4,8 @@ namespace CakeDC\Mixer\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
-use Cake\Event\Event;
-use Cake\Network\Exception\NotFoundException;
+use Cake\Event\EventInterface;
+use Cake\Http\Exception\NotFoundException;
 
 /**
  * Class AppController
@@ -16,7 +16,7 @@ use Cake\Network\Exception\NotFoundException;
  */
 class AppController extends Controller
 {
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
 
@@ -34,7 +34,7 @@ class AppController extends Controller
      * @param \Cake\Event\Event $event The beforeRender event.
      * @return void
      */
-    public function beforeRender(Event $event)
+    public function beforeRender(EventInterface $event)
     {
         // For CakePHP 3.1+
         if ($this->viewBuilder()->getClassName() === null) {

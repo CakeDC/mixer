@@ -2,7 +2,6 @@
 namespace CakeDC\Mixer\Controller\Component;
 
 use Cake\Controller\Component;
-use Cake\Controller\ComponentRegistry;
 use Cake\Filesystem\Folder;
 use Cake\Utility\Hash;
 use Composer\Console\Application;
@@ -33,7 +32,7 @@ class ComposerComponent extends Component
      * @param array $config The configuration settings provided to this component.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         $config += [
             'home' => TMP . 'composer'

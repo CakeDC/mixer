@@ -1,13 +1,14 @@
 <?php
 namespace CakeDC\Mixer\Controller;
 
+use Cake\Console\CommandRunner;
 use Cake\Console\Shell;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Datasource\ConnectionManager;
 use Cake\Http\Client;
-use Cake\Network\Exception\BadRequestException;
-use Cake\Network\Exception\NotFoundException;
+use Cake\Http\Exception\BadRequestException;
+use Cake\Http\Exception\NotFoundException;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
 
@@ -18,7 +19,7 @@ use Cake\Utility\Inflector;
 class MixerController extends AppController
 {
 
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
 
@@ -28,7 +29,7 @@ class MixerController extends AppController
     /**
      * Index method
      *
-     * @return \Cake\Network\Response|null
+     * @return \Cake\Http\Response|null
      */
     public function index()
     {
@@ -244,12 +245,13 @@ class MixerController extends AppController
     /**
      * Dispatch shell
      *
-     * @param $args
+     * @param array $args
      * @return bool
      */
     protected function _dispatchShell($args)
     {
-        return (new Shell())->dispatchShell(implode(' ', $args)) == Shell::CODE_SUCCESS;
+        //return (new Shell())->dispatchShell(implode(' ', $args)) == Shell::CODE_SUCCESS;
+        return (new CommandRunner(new \App\Application(dirname(ROOT) . '/config'), 'cake'))->run($args);
     }
 
     /**
@@ -281,7 +283,8 @@ class MixerController extends AppController
     {
         $http = new Client();
         $response = $http->get(Configure::read('Mixer.api') . '/' . $path);
-        if (!$data = Hash::get($response->json, 'data')) {
+        $data = Hash::get($response->getJson(), 'data');
+        if (!$data) {
             throw new NotFoundException();
         }
 
