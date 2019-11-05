@@ -19,11 +19,13 @@ class ComposerComponentTest extends TestCase
     public $Composer;
 
     /**
-     * setUp method
+     * Setup the test case, backup the static object values so they can be restored.
+     * Specifically backs up the contents of Configure and paths in App if they have
+     * not already been backed up.
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $registry = new ComponentRegistry();
@@ -35,7 +37,7 @@ class ComposerComponentTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->Composer);
 
