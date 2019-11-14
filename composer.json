@@ -8,7 +8,7 @@
     "authors": [
         {
             "name": "CakeDC",
-            "homepage": "http://www.cakedc.com",
+            "homepage": "https://www.cakedc.com",
             "role": "Author"
         },
         {
@@ -30,13 +30,13 @@
     },
     "autoload": {
         "psr-4": {
-            "CakeDC\\Mixer\\": "src"
+            "CakeDC\\Mixer\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "CakeDC\\Mixer\\Test\\": "tests",
-            "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
+            "CakeDC\\Mixer\\Test\\": "tests/",
+            "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
         }
     }
 }
